@@ -1,0 +1,2 @@
+# 2026HCI_Team2
+2026 HCI 2조 Git
