@@ -18,6 +18,7 @@
             --accent-red: #ff5252;
             --bg-gray: #f4f7f9;
             --wait-orange: #fd7e14;
+<<<<<<< HEAD
             --mobile-shell-width: 430px;
         }
 
@@ -32,12 +33,24 @@
         .user-major { display: inline-flex; align-items: center; gap: 8px; }
         .server-time { font-size: 0.9em; opacity: 0.9; color: #ffffff; }
         .server-time.time-warning { color: var(--accent-red); font-weight: 700; }
+=======
+        }
+
+        body { margin: 0; padding: 0; font-family: 'Noto Sans KR', sans-serif; background: var(--bg-gray); display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+        header { background: var(--hallym-blue); color: white; padding: 12px 30px; display: flex; justify-content: space-between; align-items: center; }
+        .header-right { display: flex; align-items: center; gap: 12px; }
+        .user-meta { font-size: 0.9em; text-align: right; line-height: 1.35; }
+        .user-major { display: inline-flex; align-items: center; gap: 8px; }
+>>>>>>> 48b8e935a9c0793376aec5a9050df151d5dd964e
         .roadmap-btn { display: inline-block; background: rgba(255,255,255,0.2); color: #fff; border: 1px solid rgba(255,255,255,0.35); border-radius: 6px; padding: 3px 8px; font-size: 0.8em; font-weight: 700; text-decoration: none; }
         .roadmap-btn:hover { background: rgba(255,255,255,0.3); }
         .theme-toggle-btn { background: rgba(255,255,255,0.2); color: #fff; border: 1px solid rgba(255,255,255,0.35); border-radius: 6px; padding: 7px 10px; font-size: 0.78em; font-weight: 700; cursor: pointer; }
         .theme-toggle-btn:hover { background: rgba(255,255,255,0.3); }
+<<<<<<< HEAD
         .mobile-toggle-btn { background: rgba(255,255,255,0.12); color: #fff; border: 1px solid rgba(255,255,255,0.35); border-radius: 6px; padding: 7px 10px; font-size: 0.78em; font-weight: 700; cursor: pointer; }
         .mobile-toggle-btn:hover { background: rgba(255,255,255,0.24); }
+=======
+>>>>>>> 48b8e935a9c0793376aec5a9050df151d5dd964e
         .container { display: flex; flex: 1; overflow: hidden; padding: 15px; gap: 0; }
 
         /* Left Section Style */
@@ -88,6 +101,7 @@
         .btn-syllabus { background: #607d8b; color: white; }
         .btn-cancel { background: #ff5252; color: white; }
 
+<<<<<<< HEAD
         .btn-cart { background: #00acc1; color: white; padding: 6px 12px; border-radius: 4px; border: none; font-weight: bold; font-size: 0.75em; cursor: pointer; transition: 0.2s; }
         .btn-cart:hover { background: #00838f; }
 
@@ -131,6 +145,8 @@
         .mobile-timetable-back:hover { background: #e9ecef; }
         body.mobile-sim.mobile-timetable-open .mobile-timetable-back { display: inline-block; }
 
+=======
+>>>>>>> 48b8e935a9c0793376aec5a9050df151d5dd964e
         /* Right Section & Timetable */
         .right-section { flex: 2; background: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); display: flex; flex-direction: column; position: relative; box-sizing: border-box; min-width: 0; }
         .grid-header { display: grid; grid-template-columns: 55px 55px repeat(5, 1fr); background: #f8f9fa; border: 1px solid var(--timetable-border); text-align: center; font-weight: bold; font-size: 0.8em; }
@@ -203,6 +219,7 @@
 <body>
 
 <header>
+<<<<<<< HEAD
     <div class="header-main">
         <div class="header-left">HALLYM UNIVERSITY</div>
         <div class="header-time-row">
@@ -214,6 +231,11 @@
     </div>
     <div class="header-actions">
         <button id="mobile-view-toggle-btn" class="mobile-toggle-btn" type="button">PC버전</button>
+=======
+    <div style="font-weight: bold; letter-spacing: 1px;">HALLYM UNIVERSITY</div>
+    <div class="header-right">
+        <div class="user-meta">김한림 | 20231234 | <span class="user-major">콘텐츠IT <a class="roadmap-btn" href="software_contentit.pdf" target="_blank" rel="noopener">전공 로드맵</a></span></div>
+>>>>>>> 48b8e935a9c0793376aec5a9050df151d5dd964e
         <button id="theme-toggle-btn" class="theme-toggle-btn" type="button">다크모드</button>
     </div>
 </header>
@@ -221,7 +243,11 @@
 <div class="container">
     <div class="left-section">
         <div class="search-box">
+<<<<<<< HEAD
             <input type="text" id="searchInput" placeholder="강좌명 / 교수명 / 학과명 / 이수구분 검색">
+=======
+            <input type="text" id="searchInput" placeholder="강좌명 / 교수명 / 학과명 검색">
+>>>>>>> 48b8e935a9c0793376aec5a9050df151d5dd964e
         </div>
         
         <div class="summary-bar" id="credit-summary">
@@ -229,16 +255,22 @@
             (<span id="display-reg">0</span> + <span id="display-wait" class="wait-val">0</span>) / 18
         </div>
 
+<<<<<<< HEAD
         <button id="mobile-timetable-toggle" class="mobile-timetable-toggle" type="button">시간표 보기</button>
 
         <div class="tabs">
             <button class="tab-btn active" onclick="openTab('course-list', this)">강좌 리스트</button>
             <button class="tab-btn" onclick="openTab('cart', this)">장바구니</button>
+=======
+        <div class="tabs">
+            <button class="tab-btn active" onclick="openTab('course-list', this)">강좌 리스트</button>
+>>>>>>> 48b8e935a9c0793376aec5a9050df151d5dd964e
             <button class="tab-btn" onclick="openTab('reg-list', this)">수강신청 내역</button>
             <button class="tab-btn" onclick="openTab('diagnosis', this)">학점 자가진단</button>
         </div>
 
         <div id="course-list" class="tab-content active"></div>
+<<<<<<< HEAD
         <div id="cart" class="tab-content">
             <div class="cart-toolbar">
                 <div style="font-size:0.85em; color:#666;">장바구니에 담긴 강좌의 순서를 조정한 뒤 일괄신청할 수 있습니다.</div>
@@ -247,6 +279,8 @@
             <div id="cart-empty-msg" style="text-align: center; color: #999; margin-top: 30px; display:none;">장바구니에 담긴 강좌가 없습니다.</div>
             <div id="cart-container"></div>
         </div>
+=======
+>>>>>>> 48b8e935a9c0793376aec5a9050df151d5dd964e
         <div id="reg-list" class="tab-content">
             <div id="empty-msg" style="text-align: center; color: #999; margin-top: 50px;">신청된 강좌가 없습니다.</div>
             <div id="registered-container"></div>
@@ -263,7 +297,10 @@
     <div id="resize-handle" class="resize-handle" aria-label="섹션 너비 조절 핸들" role="separator"></div>
 
     <div class="right-section">
+<<<<<<< HEAD
         <button id="mobile-timetable-back" class="mobile-timetable-back" type="button">강좌 리스트로 돌아가기</button>
+=======
+>>>>>>> 48b8e935a9c0793376aec5a9050df151d5dd964e
         <div id="timetable-title" style="text-align:center; font-weight:bold; margin-bottom:10px; background:#eef5ff; padding:8px; border-radius:6px;">나의 수강 시간표</div>
         <div class="grid-header">
             <div>숫자</div><div>알파</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div>
@@ -282,7 +319,10 @@
 
 <script>
     let myRegistrations = [];
+<<<<<<< HEAD
     let myCart = [];
+=======
+>>>>>>> 48b8e935a9c0793376aec5a9050df151d5dd964e
     const MAX_CREDITS = 18;
 
     // 이미지 기반 졸업 자가진단 데이터
@@ -301,6 +341,7 @@
         "스포츠웰니스": { base: 1, get: 1 }
     };
 
+<<<<<<< HEAD
     // 상단 서버 시간(현재는 로컬 PC 기준) 표시
     function formatTwoDigits(n) {
         return n < 10 ? '0' + n : n;
@@ -327,6 +368,8 @@
         $time.toggleClass('time-warning', isWarning);
     }
 
+=======
+>>>>>>> 48b8e935a9c0793376aec5a9050df151d5dd964e
     // 시간표 유틸리티 함수
     function getAlphaId(idx) {
         if (idx >= 2 && idx < 5) return 'A';
@@ -354,6 +397,7 @@
     }
 
     $(document).ready(function() {
+<<<<<<< HEAD
         // 서버 시간(로컬) 초기화 및 1초마다 갱신
         updateServerTime();
         setInterval(updateServerTime, 1000);
@@ -364,6 +408,11 @@
         renderGrid();
         renderCourseList(window.courseData);
         renderCart();
+=======
+        initThemeToggle();
+        renderGrid();
+        renderCourseList(window.courseData);
+>>>>>>> 48b8e935a9c0793376aec5a9050df151d5dd964e
         updateUI();
         initResizeHandle();
         
@@ -372,8 +421,12 @@
             const filtered = window.courseData.filter(c => 
                 c.name.toLowerCase().includes(val) || 
                 c.prof.toLowerCase().includes(val) ||
+<<<<<<< HEAD
                 c.dept.toLowerCase().includes(val) ||
                 String(c.category || '').toLowerCase().includes(val)
+=======
+                c.dept.toLowerCase().includes(val)
+>>>>>>> 48b8e935a9c0793376aec5a9050df151d5dd964e
             );
             renderCourseList(filtered);
             filterRegisteredList(val);
@@ -408,6 +461,7 @@
         });
     }
 
+<<<<<<< HEAD
     function initMobileViewToggle() {
         const mobileKey = 'hci-mobile-view';
         const $btn = $('#mobile-view-toggle-btn');
@@ -454,6 +508,8 @@
         });
     }
 
+=======
+>>>>>>> 48b8e935a9c0793376aec5a9050df151d5dd964e
     function initResizeHandle() {
         const $container = $('.container');
         const $left = $('.left-section');
@@ -556,7 +612,10 @@
                     <div class="btn-group">
                         <button class="btn-syllabus" onclick="event.stopPropagation(); showSyllabus(${c.id})">강의계획서</button>
                         <button class="${regBtnClass}" onclick="event.stopPropagation(); ${regBtnAction}">${regBtnText}</button>
+<<<<<<< HEAD
                         <button class="btn-cart" onclick="event.stopPropagation(); addToCart(${c.id})">장바구니</button>
+=======
+>>>>>>> 48b8e935a9c0793376aec5a9050df151d5dd964e
                     </div>
                 </div>
             `);
@@ -609,6 +668,7 @@
         });
     }
 
+<<<<<<< HEAD
     function renderCart() {
         const container = $('#cart-container').empty();
         const $empty = $('#cart-empty-msg');
@@ -715,6 +775,9 @@
             onDone = undefined;
         }
         options = options || {};
+=======
+    window.registerCourse = function(id) {
+>>>>>>> 48b8e935a9c0793376aec5a9050df151d5dd964e
         const course = window.courseData.find(c => c.id === id);
         
         if (myRegistrations.find(r => r.id === id)) {
@@ -747,6 +810,7 @@
         }
 
         const isFull = course.enr >= course.cap;
+<<<<<<< HEAD
         const skipConfirmIfNotFull = options.skipConfirmIfNotFull && !isFull;
         const suppressSuccessModal = options.suppressSuccessModal;
 
@@ -766,6 +830,8 @@
             return;
         }
 
+=======
+>>>>>>> 48b8e935a9c0793376aec5a9050df151d5dd964e
         const msg = isFull ? `정원 초과입니다. [${course.name}] 대기 신청하시겠습니까?` : `[${course.name}] 신청하시겠습니까?`;
         
         showModal("수강신청 확인", msg, 'confirm', function() {
@@ -775,6 +841,7 @@
             } else {
                 myRegistrations.push({ id: id, status: 'registered' });
             }
+<<<<<<< HEAD
             // 신청 성공 시 해당 강좌는 장바구니에서 제거
             myCart = myCart.filter(cid => cid !== id);
             if (suppressSuccessModal) {
@@ -785,6 +852,9 @@
                     if (onDone) onDone();
                 });
             }
+=======
+            showModal("신청 완료", "정상적으로 처리되었습니다.", 'refresh');
+>>>>>>> 48b8e935a9c0793376aec5a9050df151d5dd964e
         });
     };
 
@@ -835,7 +905,10 @@
         updateDiagnosis();
         updateTimetableDisplay();
         renderCourseList(window.courseData);
+<<<<<<< HEAD
         renderCart();
+=======
+>>>>>>> 48b8e935a9c0793376aec5a9050df151d5dd964e
         
         let regSum = 0; let waitSum = 0;
         myRegistrations.forEach(r => {
@@ -894,9 +967,15 @@
             footer.append($('<button class="btn-modal-cancel">취소</button>').click(closeModal));
             footer.append($('<button class="btn-modal-confirm">확인</button>').click(() => { closeModal(); if(onConfirm) onConfirm(); }));
         } else if (type === 'refresh') {
+<<<<<<< HEAD
             footer.append($('<button class="btn-modal-confirm">확인</button>').click(() => { closeModal(); updateUI(); if(onConfirm) onConfirm(); }));
         } else {
             footer.append($('<button class="btn-modal-close">닫기</button>').click(() => { closeModal(); if(onConfirm) onConfirm(); }));
+=======
+            footer.append($('<button class="btn-modal-confirm">확인</button>').click(() => { closeModal(); updateUI(); }));
+        } else {
+            footer.append($('<button class="btn-modal-close">닫기</button>').click(closeModal));
+>>>>>>> 48b8e935a9c0793376aec5a9050df151d5dd964e
         }
         $('#commonModal').css('display', 'flex');
     }
