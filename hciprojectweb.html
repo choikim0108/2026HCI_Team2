@@ -7,51 +7,47 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="courses.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
-    
+
     <style>
         :root {
             --hallym-blue: #00305d;
-            --timetable-border: #d1e3f5;
+            --hallym-blue-bright: #0058a8;
+            --timetable-border: #c7dcf1;
             --course-yellow: #fff9c4;
-            --overlap-pastel-red: #ffcdd2;
-            --highlight-blue: #00bcd4;
-            --accent-red: #ff5252;
+            --overlap-red-soft: #ffe1e6;
+            --overlap-red: #f23557;
+            --overlap-red-deep: #9f1239;
+            --registered-blue: #d7efff;
+            --registered-blue-border: #36a3ff;
+            --registered-blue-soft: #eaf7ff;
+            --overlap-pastel-red: #ffb8c0;
+            --highlight-blue: #00aee8;
+            --accent-red: #f23557;
             --bg-gray: #f4f7f9;
-            --wait-orange: #fd7e14;
-<<<<<<< HEAD
+            --wait-orange: #ff7a00;
+            --text-main: #22384d;
+            --text-muted: #536576;
             --mobile-shell-width: 430px;
         }
 
-        body { margin: 0; padding: 0; font-family: 'Noto Sans KR', sans-serif; background: var(--bg-gray); display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
-        header { background: var(--hallym-blue); color: white; padding: 12px 30px; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; }
+        body { margin: 0; padding: 0; font-family: 'Noto Sans KR', sans-serif; font-size: 15.5px; background: var(--bg-gray); color: var(--text-main); display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+        header { background: var(--hallym-blue); color: white; padding: 14px 30px; display: flex; justify-content: space-between; align-items: flex-start; box-sizing: border-box; gap: 20px; }
         .header-main { display: flex; flex-direction: column; gap: 6px; }
-        .header-left { white-space: nowrap; font-weight: bold; letter-spacing: 1px; }
+        .header-left { white-space: nowrap; font-weight: bold; letter-spacing: 1px; line-height: 1.2; }
         .header-time-row,
         .header-user-row { display: flex; align-items: center; }
-        .header-actions { display: flex; align-items: center; gap: 12px; }
-        .user-meta { font-size: 0.9em; text-align: right; line-height: 1.35; }
+        .header-actions { display: flex; align-items: stretch; gap: 12px; padding-top: 2px; }
+        .user-meta { font-size: 0.9em; text-align: right; line-height: 1.35; min-height: 24px; display: flex; align-items: center; }
         .user-major { display: inline-flex; align-items: center; gap: 8px; }
-        .server-time { font-size: 0.9em; opacity: 0.9; color: #ffffff; }
+        .server-time { font-size: 0.9em; opacity: 0.9; color: #ffffff; min-height: 22px; display: inline-flex; align-items: center; }
         .server-time.time-warning { color: var(--accent-red); font-weight: 700; }
-=======
-        }
-
-        body { margin: 0; padding: 0; font-family: 'Noto Sans KR', sans-serif; background: var(--bg-gray); display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
-        header { background: var(--hallym-blue); color: white; padding: 12px 30px; display: flex; justify-content: space-between; align-items: center; }
-        .header-right { display: flex; align-items: center; gap: 12px; }
-        .user-meta { font-size: 0.9em; text-align: right; line-height: 1.35; }
-        .user-major { display: inline-flex; align-items: center; gap: 8px; }
->>>>>>> 48b8e935a9c0793376aec5a9050df151d5dd964e
         .roadmap-btn { display: inline-block; background: rgba(255,255,255,0.2); color: #fff; border: 1px solid rgba(255,255,255,0.35); border-radius: 6px; padding: 3px 8px; font-size: 0.8em; font-weight: 700; text-decoration: none; }
         .roadmap-btn:hover { background: rgba(255,255,255,0.3); }
-        .theme-toggle-btn { background: rgba(255,255,255,0.2); color: #fff; border: 1px solid rgba(255,255,255,0.35); border-radius: 6px; padding: 7px 10px; font-size: 0.78em; font-weight: 700; cursor: pointer; }
+        .theme-toggle-btn { background: rgba(255,255,255,0.2); color: #fff; border: 1px solid rgba(255,255,255,0.35); border-radius: 8px; padding: 7px 12px; font-size: 0.78em; font-weight: 700; cursor: pointer; min-height: 38px; min-width: 88px; display: inline-flex; align-items: center; justify-content: center; }
         .theme-toggle-btn:hover { background: rgba(255,255,255,0.3); }
-<<<<<<< HEAD
-        .mobile-toggle-btn { background: rgba(255,255,255,0.12); color: #fff; border: 1px solid rgba(255,255,255,0.35); border-radius: 6px; padding: 7px 10px; font-size: 0.78em; font-weight: 700; cursor: pointer; }
+        .mobile-toggle-btn { background: rgba(255,255,255,0.12); color: #fff; border: 1px solid rgba(255,255,255,0.35); border-radius: 8px; padding: 7px 12px; font-size: 0.78em; font-weight: 700; cursor: pointer; min-height: 38px; min-width: 88px; display: inline-flex; align-items: center; justify-content: center; }
         .mobile-toggle-btn:hover { background: rgba(255,255,255,0.24); }
-=======
->>>>>>> 48b8e935a9c0793376aec5a9050df151d5dd964e
-        .container { display: flex; flex: 1; overflow: hidden; padding: 15px; gap: 0; }
+        .container { display: flex; flex: 1; overflow: hidden; padding: 15px; gap: 0; align-items: stretch; }
 
         /* Left Section Style */
         .left-section { flex: 1.3; display: flex; flex-direction: column; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.08); box-sizing: border-box; min-width: 0; }
@@ -59,21 +55,31 @@
         .resize-handle::before { content: ''; position: absolute; left: 50%; top: 12px; bottom: 12px; width: 3px; transform: translateX(-50%); border-radius: 999px; background: #c6d4e4; transition: background 0.2s, box-shadow 0.2s; }
         .resize-handle:hover::before { background: #9db8d4; box-shadow: 0 0 0 3px rgba(157, 184, 212, 0.2); }
         body.is-resizing { cursor: col-resize; user-select: none; }
-        .search-box { padding: 15px; border-bottom: 1px solid #eee; }
-        .search-box input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
-        
-        .summary-bar { background: #f1f3f5; padding: 10px 15px; font-size: 0.85em; text-align: center; font-weight: bold; border-bottom: 1px solid #ddd; }
+        .search-box { padding: 18px 18px 14px; border-bottom: 1px solid #edf1f5; background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%); }
+        .search-row { display: flex; gap: 10px; align-items: center; }
+        .search-input-wrap { position: relative; flex: 1; min-width: 0; }
+        .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #7390aa; font-size: 1.05em; pointer-events: none; }
+        .search-box input { width: 100%; padding: 12px 14px 12px 42px; border: 1px solid #d5dee8; border-radius: 10px; box-sizing: border-box; font-size: 0.98em; min-height: 48px; }
+        .search-box input:focus { outline: none; border-color: #74a9dd; box-shadow: 0 0 0 4px rgba(116, 169, 221, 0.16); }
+        .search-clear-btn { flex: 0 0 auto; min-width: 76px; min-height: 48px; padding: 11px 12px; border: 1px solid #d5dee8; border-radius: 10px; background: #f8fbfe; color: var(--hallym-blue); font-weight: 700; cursor: pointer; }
+        .search-clear-btn:hover { background: #edf5fc; }
+        .search-helper { margin-top: 10px; font-size: 0.8em; color: #607286; line-height: 1.5; }
+        .search-meta { margin-top: 10px; display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: 0.78em; color: #6c7d90; }
+        .search-count { font-weight: 700; color: var(--hallym-blue); }
+        .search-keyword { padding: 3px 8px; border-radius: 999px; background: #eef5ff; color: #285f92; font-weight: 700; }
+
+        .summary-bar { background: #f1f3f5; padding: 12px 15px; font-size: 0.9em; text-align: center; font-weight: bold; border-bottom: 1px solid #ddd; min-height: 48px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; }
         .summary-bar .total-label { color: #333; }
         .summary-bar .wait-val { color: var(--wait-orange); }
 
-        .tabs { display: flex; background: #f8f9fa; border-bottom: 1px solid #ddd; }
-        .tab-btn { flex: 1; padding: 12px; border: none; cursor: pointer; font-weight: bold; background: #f8f9fa; color: #666; transition: 0.2s; }
+        .tabs { display: flex; background: #f8f9fa; border-bottom: 1px solid #ddd; align-items: stretch; }
+        .tab-btn { flex: 1; min-height: 50px; padding: 12px 10px; border: none; cursor: pointer; font-weight: bold; background: #f8f9fa; color: #666; transition: 0.2s; display: flex; align-items: center; justify-content: center; text-align: center; }
         .tab-btn.active { background: white; color: var(--hallym-blue); border-bottom: 3px solid var(--hallym-blue); }
         .tab-content { flex: 1; overflow-y: auto; padding: 15px; display: none; }
         .tab-content.active { display: block; }
 
         /* Category Tag System */
-        .category-tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.72em; font-weight: bold; margin-bottom: 6px; color: white; }
+        .category-tag { display: inline-block; width: fit-content; align-self: flex-start; padding: 3px 9px; border-radius: 6px; font-size: 0.74em; font-weight: bold; margin-bottom: 6px; color: white; }
         .tag-전공 { background: #1976d2; }
         .tag-오디세이세미나 { background: #388e3c; }
         .tag-정보소통, .tag-의사소통, .tag-글로벌소통 { background: #f57c00; }
@@ -82,30 +88,50 @@
         .tag-교양이수학점 { background: #607d8b; }
 
         /* Course Card Style */
-        .course-card { border: 1px solid #eee; border-radius: 8px; padding: 15px; margin-bottom: 10px; cursor: pointer; background: #fff; transition: 0.2s; position: relative; }
+        .course-card { border: 1px solid #e7edf4; border-radius: 12px; padding: 16px; margin-bottom: 12px; cursor: pointer; background: #fff; transition: 0.2s; position: relative; display: flex; flex-direction: column; gap: 0; }
         .course-card:hover { border-color: var(--hallym-blue); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .course-card.selected-course { background: #e8f2ff; border-color: #9fc4f2; }
+        .course-card.selected-course { background: #f2f9ff; border-color: var(--registered-blue-border); }
         .course-card.hidden { display: none; }
+        .course-card-topline { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; margin-bottom: 10px; }
+        .course-card-title { flex: 1; min-width: 0; }
+        .course-code { display: inline-flex; align-items: center; padding: 3px 8px; margin-left: 8px; border-radius: 999px; background: #edf4fb; color: #3b5e80; font-size: 0.72em; font-weight: 700; vertical-align: middle; transform: translateY(-1px); }
+        .course-status-badges { display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: flex-start; gap: 6px; min-width: 126px; }
+        .status-badge { display: inline-flex; align-items: center; padding: 5px 10px; border-radius: 999px; font-size: 0.74em; font-weight: 800; }
+        .status-open { background: #d9f8e6; color: #05723b; }
+        .status-wait { background: #fff0dc; color: #c45600; }
+        .status-registered { background: #d9f0ff; color: #006aad; }
+        .status-full { background: #ffe2e6; color: #d7193f; }
+        .course-primary-meta { display: flex; flex-wrap: wrap; gap: 8px 14px; margin-bottom: 6px; }
+        .course-primary-meta span { font-weight: 600; color: #475867; }
+        .course-primary-meta strong { color: #1f2f3d; }
+        .course-time-line { color: #3d6b97; font-weight: 700; }
+        .course-enrollment-line { color: #536576; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        .course-name { font-weight: bold; font-size: 1.05em; color: var(--hallym-blue); margin-bottom: 4px; display: block; }
-        .course-info { font-size: 0.82em; color: #666; line-height: 1.6; }
+        .course-name { font-weight: bold; font-size: 1.12em; color: var(--hallym-blue); margin-bottom: 4px; display: block; line-height: 1.45; }
+        .course-info { font-size: 0.91em; color: #5a6a79; line-height: 1.65; display: flex; flex-direction: column; gap: 4px; }
         .full-people { color: var(--accent-red) !important; font-weight: bold; }
         .wait-people { color: var(--wait-orange) !important; font-weight: bold; }
 
-        .btn-group { display: flex; gap: 6px; margin-top: 10px; }
-        .btn-reg, .btn-syllabus, .btn-cancel { padding: 6px 12px; border-radius: 4px; border: none; font-weight: bold; font-size: 0.75em; cursor: pointer; transition: 0.2s; }
-        .btn-reg { background: var(--hallym-blue); color: white; }
-        .btn-reg:hover { background: #004a8d; }
-        .btn-reg-registered { background: #8a9aad; color: white; }
-        .btn-reg-registered:hover { background: #718397; }
+        .btn-group { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 14px; width: 100%; }
+        .btn-reg, .btn-syllabus, .btn-cancel { width: 100%; box-sizing: border-box; padding: 8px 13px; border-radius: 8px; border: none; font-weight: bold; font-size: 0.78em; cursor: pointer; transition: 0.2s; min-height: 38px; display: inline-flex; align-items: center; justify-content: center; text-align: center; }
+        .btn-reg { background: var(--hallym-blue-bright); color: white; box-shadow: 0 2px 8px rgba(0, 88, 168, 0.22); }
+        .btn-reg:hover { background: #006dcc; }
+        .btn-reg-waiting { background: var(--wait-orange); }
+        .btn-reg-waiting:hover { background: #d86a10; }
+        .btn-reg-registered { background: #f36c6c; color: #fff; box-shadow: 0 2px 8px rgba(243, 108, 108, 0.22); }
+        .btn-reg-registered:hover { background: #e24f4f; }
         .btn-syllabus { background: #607d8b; color: white; }
-        .btn-cancel { background: #ff5252; color: white; }
+        .btn-cancel { background: #f36c6c; color: white; }
 
-<<<<<<< HEAD
-        .btn-cart { background: #00acc1; color: white; padding: 6px 12px; border-radius: 4px; border: none; font-weight: bold; font-size: 0.75em; cursor: pointer; transition: 0.2s; }
+        .btn-cart { width: 100%; box-sizing: border-box; background: #0097b2; color: white; padding: 8px 13px; border-radius: 8px; border: none; font-weight: bold; font-size: 0.78em; cursor: pointer; transition: 0.2s; min-height: 38px; display: inline-flex; align-items: center; justify-content: center; text-align: center; }
         .btn-cart:hover { background: #00838f; }
+        .empty-state { margin-top: 28px; padding: 20px 18px; border: 1px dashed #c7d8ea; border-radius: 12px; background: #f8fbff; text-align: center; color: #607286; line-height: 1.6; }
+        .empty-state.compact-empty { margin-top: 24px; }
+        .registered-card .course-info { margin-bottom: 14px; }
+        .registered-card .btn-cancel { margin-top: 2px; }
 
-        .cart-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+
+        .cart-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 12px; }
         .cart-bulk-btn { padding: 6px 12px; border-radius: 4px; border: none; background: var(--hallym-blue); color: #fff; font-weight: bold; font-size: 0.8em; cursor: pointer; }
         .cart-bulk-btn:disabled { opacity: 0.5; cursor: default; }
         .cart-index { font-weight: bold; margin-right: 8px; color: var(--hallym-blue); }
@@ -125,12 +151,12 @@
         body.mobile-sim .header-left { font-size: 1.35em; letter-spacing: 1.5px; margin-bottom: 6px; }
         body.mobile-sim .header-time-row,
         body.mobile-sim .header-user-row { font-size: 0.85em; }
-        body.mobile-sim .header-actions { gap: 10px; flex-direction: column; align-items: flex-end; }
+        body.mobile-sim .header-actions { gap: 10px; flex-direction: column; align-items: stretch; }
         body.mobile-sim .server-time,
         body.mobile-sim .user-meta { display: inline-flex; align-items: center; padding: 6px 14px; border-radius: 999px; background: rgba(0,0,0,0.35); }
         body.mobile-sim .roadmap-btn { border-radius: 999px; font-size: 0.7em; padding: 2px 7px; }
         body.mobile-sim .mobile-toggle-btn,
-        body.mobile-sim .theme-toggle-btn { border-radius: 999px; padding: 6px 8px; font-size: 0.7em; }
+        body.mobile-sim .theme-toggle-btn { border-radius: 999px; padding: 6px 8px; font-size: 0.7em; min-width: 96px; }
         body.mobile-sim .container { flex-direction: column; padding: 10px 12px 20px; box-sizing: border-box; }
         body.mobile-sim .resize-handle { display: none; }
         body.mobile-sim .left-section,
@@ -145,37 +171,61 @@
         .mobile-timetable-back:hover { background: #e9ecef; }
         body.mobile-sim.mobile-timetable-open .mobile-timetable-back { display: inline-block; }
 
-=======
->>>>>>> 48b8e935a9c0793376aec5a9050df151d5dd964e
         /* Right Section & Timetable */
-        .right-section { flex: 2; background: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); display: flex; flex-direction: column; position: relative; box-sizing: border-box; min-width: 0; }
-        .grid-header { display: grid; grid-template-columns: 55px 55px repeat(5, 1fr); background: #f8f9fa; border: 1px solid var(--timetable-border); text-align: center; font-weight: bold; font-size: 0.8em; }
-        .grid-header div { padding: 10px 0; border-right: 1px solid var(--timetable-border); }
-        .grid-container { display: grid; grid-template-columns: 55px 55px repeat(5, 1fr); grid-template-rows: repeat(22, 32px); background: var(--timetable-border); border: 1px solid var(--timetable-border); flex: 1; overflow-y: auto; }
-        
-        .cell { background: white; display: flex; align-items: center; justify-content: center; font-size: 0.72em; color: #888; border-right: 1px solid var(--timetable-border); border-bottom: 1px solid #f0f0f0; line-height: 1.2; text-align: center; word-break: break-all; padding: 2px; }
+        .right-section { --timetable-scrollbar-width: 0px; flex: 2.1; background: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); display: flex; flex-direction: column; position: relative; box-sizing: border-box; min-width: 0; }
+        .timetable-topbar { display: flex; justify-content: space-between; align-items: stretch; gap: 12px; margin-bottom: 12px; }
+        .timetable-title-card { flex: 1; text-align: center; font-weight: bold; background: #eef5ff; padding: 12px 14px; border-radius: 10px; color: var(--hallym-blue); min-height: 48px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; }
+        .timetable-legend { min-width: 250px; display: flex; flex-wrap: wrap; align-content: center; justify-content: center; gap: 8px; padding: 10px 12px; background: #f8fbff; border: 1px solid #e3edf8; border-radius: 10px; min-height: 48px; box-sizing: border-box; }
+        .timetable-alert { display: none; margin: -2px 0 12px; padding: 11px 14px; border: 1px solid #ff9aac; border-left: 5px solid var(--overlap-red); border-radius: 10px; background: #fff4f6; color: var(--overlap-red-deep); font-size: 0.86em; font-weight: 700; line-height: 1.55; box-shadow: 0 4px 12px rgba(242, 53, 87, 0.08); }
+        .timetable-alert strong { color: #7f0d2b; }
+        .legend-pill { display: inline-flex; align-items: center; gap: 6px; font-size: 0.76em; color: #496173; font-weight: 700; }
+        .legend-pill::before { content: ''; width: 10px; height: 10px; border-radius: 999px; display: inline-block; }
+        .legend-registered::before { background: var(--registered-blue-border); }
+        .legend-waiting::before { background: #b9c1ca; }
+        .legend-overlap::before { background: var(--overlap-pastel-red); }
+        .grid-header { display: grid; grid-template-columns: 82px 82px repeat(5, 1fr); padding-right: var(--timetable-scrollbar-width); background: #f8f9fa; border: 1px solid var(--timetable-border); text-align: center; font-weight: bold; font-size: 0.82em; box-sizing: border-box; }
+        .grid-header div { padding: 10px 0; border-right: 1px solid var(--timetable-border); min-height: 40px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; }
+        .grid-container { display: grid; grid-template-columns: 82px 82px repeat(5, 1fr); grid-template-rows: repeat(22, 38px); background: var(--timetable-border); border: 1px solid var(--timetable-border); flex: 1; overflow-y: auto; }
+
+        .cell { background: white; display: flex; align-items: center; justify-content: center; font-size: 0.72em; color: #888; border-right: 1px solid var(--timetable-border); border-bottom: 1px solid #f0f0f0; line-height: 1.2; text-align: center; word-break: break-all; padding: 2px; box-sizing: border-box; }
         .no-border-bottom { border-bottom: none !important; }
-        .label-cell { background: #f8f9fa; color: #333; font-weight: 500; }
+        .label-cell { background: #f8f9fa; color: #333; font-weight: 500; flex-direction: column; gap: 2px; padding: 4px 2px; }
+        .label-main { font-size: 0.78em; font-weight: 700; line-height: 1.1; color: #22384d; }
+        .label-sub { font-size: 0.62em; line-height: 1.1; color: #6a7f93; white-space: nowrap; }
+        .day-cell { word-break: keep-all; padding: 4px; }
+        .day-cell.course-cell-primary { flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-weight: 700; color: #0d3559; padding: 4px 6px; }
+        .day-cell.course-cell-primary .course-cell-name { font-size: 15px; line-height: 1.12; word-break: keep-all; overflow-wrap: anywhere; max-width: 100%; }
+        .day-cell.course-cell-primary .course-cell-time { font-size: 12px; opacity: 0.92; line-height: 1.1; }
+        .day-cell.course-cell-primary.large-label .course-cell-name { font-size: 17px; }
+        .day-cell.course-cell-primary.compact-label .course-cell-name { font-size: 13.5px; }
+        .day-cell.course-cell-primary.xcompact-label .course-cell-name { font-size: 12.5px; }
+        .day-cell.course-cell-primary .course-cell-name.single-line-label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .day-cell.course-span-start { border-bottom-color: transparent !important; }
+        .day-cell.course-span-middle { border-top-color: transparent !important; border-bottom-color: transparent !important; }
+        .day-cell.course-span-end { border-top-color: transparent !important; }
 
         /* Timetable States */
-        .fixed-course { background-color: var(--course-yellow) !important; color: #000 !important; font-weight: bold; border: 1px solid #e0d000 !important; }
+        .fixed-course { background-color: var(--registered-blue) !important; color: #0d3559 !important; font-weight: bold; border: 1px solid var(--registered-blue-border) !important; }
         .fixed-waiting { background-color: #f1f3f5 !important; color: #adb5bd !important; border: 1px dashed #ccc !important; }
-        .highlight-registered-focus { background-color: var(--course-yellow) !important; box-shadow: inset 0 0 0 2px var(--highlight-blue) !important; z-index: 10; color: #000 !important; }
-        .highlight-overlap { background-color: var(--overlap-pastel-red) !important; color: #b71c1c !important; font-weight: bold !important; }
+        .highlight-registered-focus { background-color: var(--overlap-red-soft) !important; box-shadow: inset 0 0 0 2px var(--overlap-red) !important; z-index: 10; color: var(--overlap-red-deep) !important; }
+        .highlight-overlap { background-color: var(--overlap-red-soft) !important; color: var(--overlap-red-deep) !important; font-weight: bold !important; border-color: #ff7f96 !important; box-shadow: inset 0 0 0 2px var(--overlap-red) !important; z-index: 12; }
         .highlight-target { background-color: #e3f2fd !important; color: transparent !important; }
 
         /* Diagnosis Table Style */
         .diag-table { width: 100%; border-collapse: collapse; font-size: 0.82em; margin-top: 5px; }
         .diag-table th, .diag-table td { border: 1px solid #dee2e6; padding: 10px 4px; text-align: center; }
         .diag-table th { background: #e3f2fd; color: var(--hallym-blue); font-weight: bold; }
+        .diag-table tbody tr:nth-child(even) { background: #f8fbff; }
+        .diag-table tbody tr:hover { background: #eef5ff; }
         .diag-table .category-col { background: #f8f9fa; font-weight: bold; text-align: left; padding-left: 10px; }
+        .diag-table td:not(.category-col) { font-variant-numeric: tabular-nums; }
         .val-reg { color: #1976d2; font-weight: bold; }
         .val-remain { color: #d32f2f; font-weight: bold; }
         .btn-lookup { padding: 4px 10px; background: #ef6c00; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.75em; }
 
         /* Modal Style */
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); align-items: center; justify-content: center; }
-        .modal-content { background: white; padding: 25px; border-radius: 12px; width: 450px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); animation: modalFadeIn 0.3s; }
+        .modal-content { background: white; padding: 25px; border-radius: 12px; width: 450px; max-width: calc(100vw - 32px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); animation: modalFadeIn 0.3s; box-sizing: border-box; }
         @keyframes modalFadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
         .modal-header { font-size: 1.1em; font-weight: bold; margin-bottom: 15px; color: var(--hallym-blue); border-bottom: 2px solid #eee; padding-bottom: 10px; }
         .modal-footer { margin-top: 25px; display: flex; justify-content: flex-end; gap: 10px; }
@@ -184,7 +234,7 @@
         .btn-modal-close { padding: 8px 20px; background: #607d8b; color: white; border: none; border-radius: 4px; cursor: pointer; }
 
         /* Dark Mode */
-        body.dark-mode { --bg-gray: #141a22; --hallym-blue: #0c223d; --timetable-border: #324355; --course-yellow: #7d6a17; --overlap-pastel-red: #5a2d34; --highlight-blue: #4cc9f0; --accent-red: #ff7a7a; --wait-orange: #ffae42; }
+        body.dark-mode { --bg-gray: #141a22; --hallym-blue: #0c223d; --timetable-border: #324355; --course-yellow: #7d6a17; --overlap-pastel-red: #5a2d34; --overlap-red-soft: #5a2d34; --overlap-red: #ff7a7a; --overlap-red-deep: #ffd0d0; --highlight-blue: #4cc9f0; --accent-red: #ff7a7a; --wait-orange: #ffae42; }
         body.dark-mode header { background: #0b1729; border-bottom: 1px solid #233248; }
         body.dark-mode .theme-toggle-btn { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); }
         body.dark-mode .roadmap-btn { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); }
@@ -198,12 +248,53 @@
         body.dark-mode .grid-header,
         body.dark-mode .label-cell,
         body.dark-mode .diag-table .category-col,
-        body.dark-mode #timetable-title { background: #243142 !important; color: #d7e1ef !important; border-color: #324355 !important; }
+        body.dark-mode .timetable-title-card,
+        body.dark-mode .timetable-legend { background: #243142 !important; color: #d7e1ef !important; border-color: #324355 !important; }
         body.dark-mode .search-box input { background: #17212e; color: #d7e1ef; border-color: #3a4b61; }
+        body.dark-mode .search-clear-btn { background: #17212e; color: #cfe0f1; border-color: #3a4b61; }
+        body.dark-mode .timetable-alert { background: #3b1f29; border-color: #794050; color: #ffdce2; }
+        body.dark-mode .timetable-alert strong { color: #fff1f3; }
+        body.dark-mode .search-helper,
+        body.dark-mode .search-meta { color: #9fb0c6; }
+        body.dark-mode .search-keyword,
+        body.dark-mode .course-code { background: #24374a; color: #cfe0f1; }
         body.dark-mode .course-card,
         body.dark-mode .cell { background: #1b2533; color: #c5d2e4; border-color: #324355; }
         body.dark-mode .course-card:hover { border-color: #4f89c7; }
         body.dark-mode .course-card.selected-course { background: #23384f; border-color: #4d78a6; }
+        body.dark-mode .course-primary-meta strong,
+        body.dark-mode .course-primary-meta span,
+        body.dark-mode .course-info,
+        body.dark-mode .legend-pill,
+        body.dark-mode .course-enrollment-line,
+        body.dark-mode .label-main,
+        body.dark-mode .label-sub,
+        body.dark-mode .grid-header div,
+        body.dark-mode .label-cell,
+        body.dark-mode .day-cell.course-cell-primary,
+        body.dark-mode #search-count,
+        body.dark-mode #server-time,
+        body.dark-mode .user-meta,
+        body.dark-mode #cart-empty-msg,
+        body.dark-mode #empty-msg,
+        body.dark-mode .btn-cart-small,
+        body.dark-mode .mobile-timetable-back,
+        body.dark-mode .mobile-timetable-toggle { color: #dbe7f5 !important; }
+        body.dark-mode .summary-bar { color: #d7e1ef; }
+        body.dark-mode .course-time-line { color: #8fc6ff; }
+        body.dark-mode .full-people { color: #ff9f9f !important; }
+        body.dark-mode .wait-people { color: #ffc978 !important; }
+        body.dark-mode .diag-table tbody tr:nth-child(even) { background: #202b38; }
+        body.dark-mode .diag-table tbody tr:hover { background: #263443; }
+        body.dark-mode .btn-cart-small,
+        body.dark-mode .mobile-timetable-back,
+        body.dark-mode .mobile-timetable-toggle { background: #243142; border-color: #3b4a61; }
+        body.dark-mode .fixed-course { background-color: #1c4760 !important; border-color: #5cb6ff !important; color: #edf8ff !important; }
+        body.dark-mode .fixed-waiting { background-color: #374454 !important; border-color: #7b8a9c !important; color: #eef3f9 !important; }
+        body.dark-mode .status-open { background: #1d4a36; color: #c2efd7; }
+        body.dark-mode .status-wait { background: #5a3b1f; color: #ffd7b5; }
+        body.dark-mode .status-full { background: #542f35; color: #ffd0d0; }
+        body.dark-mode .status-registered { background: #18435c; color: #bde7ff; }
         body.dark-mode .course-name,
         body.dark-mode .tab-btn.active,
         body.dark-mode .diag-table th,
@@ -214,28 +305,41 @@
         body.dark-mode .cell { border-color: #324355; }
         body.dark-mode .course-info,
         body.dark-mode #empty-msg { color: #9fb0c6 !important; }
+
+        @media (max-width: 1220px) {
+            .course-card-topline,
+            .cart-toolbar,
+            header { flex-wrap: wrap; }
+            .course-status-badges,
+            .timetable-legend { justify-content: flex-start; }
+        }
+
+        @media (max-width: 1120px) {
+            .timetable-topbar { flex-direction: column; align-items: stretch; }
+            .timetable-legend { min-width: 0; width: 100%; justify-content: flex-start; }
+        }
+
+        @media (max-width: 880px) {
+            .btn-group { grid-template-columns: 1fr; }
+            .search-meta { flex-direction: column; align-items: flex-start; }
+            .grid-header { font-size: 0.76em; }
+        }
     </style>
 </head>
 <body>
 
 <header>
-<<<<<<< HEAD
     <div class="header-main">
         <div class="header-left">HALLYM UNIVERSITY</div>
         <div class="header-time-row">
             <div id="server-time" class="server-time" aria-label="서버 시간 (로컬 기준)"></div>
         </div>
         <div class="header-user-row">
-            <div class="user-meta">김한림 | 20231234 | <span class="user-major">콘텐츠IT <a class="roadmap-btn" href="software_contentit.pdf" target="_blank" rel="noopener">전공 로드맵</a></span></div>
+            <div class="user-meta" id="user-meta"></div>
         </div>
     </div>
     <div class="header-actions">
         <button id="mobile-view-toggle-btn" class="mobile-toggle-btn" type="button">PC버전</button>
-=======
-    <div style="font-weight: bold; letter-spacing: 1px;">HALLYM UNIVERSITY</div>
-    <div class="header-right">
-        <div class="user-meta">김한림 | 20231234 | <span class="user-major">콘텐츠IT <a class="roadmap-btn" href="software_contentit.pdf" target="_blank" rel="noopener">전공 로드맵</a></span></div>
->>>>>>> 48b8e935a9c0793376aec5a9050df151d5dd964e
         <button id="theme-toggle-btn" class="theme-toggle-btn" type="button">다크모드</button>
     </div>
 </header>
@@ -243,46 +347,45 @@
 <div class="container">
     <div class="left-section">
         <div class="search-box">
-<<<<<<< HEAD
-            <input type="text" id="searchInput" placeholder="강좌명 / 교수명 / 학과명 / 이수구분 검색">
-=======
-            <input type="text" id="searchInput" placeholder="강좌명 / 교수명 / 학과명 검색">
->>>>>>> 48b8e935a9c0793376aec5a9050df151d5dd964e
+            <div class="search-row">
+                <div class="search-input-wrap">
+                    <span class="search-icon" aria-hidden="true">🔍</span>
+                    <input type="text" id="searchInput" placeholder="강좌명 / 교수명 / 학과명 / 이수구분 / 강의코드 검색">
+                </div>
+                <button type="button" id="clearSearchBtn" class="search-clear-btn">초기화</button>
+            </div>
+            <div class="search-helper">코드까지 함께 찾을 수 있게 개선했습니다. ISU/Course는 전공·교양 같은 이수구분을 뜻하며, 카드에 마우스를 올리면 시간표 충돌도 바로 확인할 수 있습니다.</div>
+            <div class="search-meta">
+                <span id="search-count" class="search-count">전체 0개 강좌</span>
+                <span id="search-keyword"></span>
+            </div>
         </div>
-        
+
         <div class="summary-bar" id="credit-summary">
-            신청 학점: <span id="display-total">0</span> 
+            신청 학점: <span id="display-total">0</span>
             (<span id="display-reg">0</span> + <span id="display-wait" class="wait-val">0</span>) / 18
         </div>
 
-<<<<<<< HEAD
         <button id="mobile-timetable-toggle" class="mobile-timetable-toggle" type="button">시간표 보기</button>
 
         <div class="tabs">
-            <button class="tab-btn active" onclick="openTab('course-list', this)">강좌 리스트</button>
-            <button class="tab-btn" onclick="openTab('cart', this)">장바구니</button>
-=======
-        <div class="tabs">
-            <button class="tab-btn active" onclick="openTab('course-list', this)">강좌 리스트</button>
->>>>>>> 48b8e935a9c0793376aec5a9050df151d5dd964e
-            <button class="tab-btn" onclick="openTab('reg-list', this)">수강신청 내역</button>
-            <button class="tab-btn" onclick="openTab('diagnosis', this)">학점 자가진단</button>
+            <button type="button" class="tab-btn active" onclick="openTab('course-list', this)">강좌 리스트</button>
+            <button type="button" class="tab-btn" onclick="openTab('cart', this)">장바구니</button>
+            <button type="button" class="tab-btn" onclick="openTab('reg-list', this)">수강신청 내역</button>
+            <button type="button" class="tab-btn" onclick="openTab('diagnosis', this)">학점 자가진단</button>
         </div>
 
         <div id="course-list" class="tab-content active"></div>
-<<<<<<< HEAD
         <div id="cart" class="tab-content">
             <div class="cart-toolbar">
                 <div style="font-size:0.85em; color:#666;">장바구니에 담긴 강좌의 순서를 조정한 뒤 일괄신청할 수 있습니다.</div>
                 <button type="button" class="cart-bulk-btn" onclick="openCartBulkModal()">일괄신청</button>
             </div>
-            <div id="cart-empty-msg" style="text-align: center; color: #999; margin-top: 30px; display:none;">장바구니에 담긴 강좌가 없습니다.</div>
+            <div id="cart-empty-msg" class="empty-state compact-empty" style="display:none;">장바구니에 담긴 강좌가 없습니다.</div>
             <div id="cart-container"></div>
         </div>
-=======
->>>>>>> 48b8e935a9c0793376aec5a9050df151d5dd964e
         <div id="reg-list" class="tab-content">
-            <div id="empty-msg" style="text-align: center; color: #999; margin-top: 50px;">신청된 강좌가 없습니다.</div>
+            <div id="empty-msg" class="empty-state compact-empty">신청된 강좌가 없습니다.</div>
             <div id="registered-container"></div>
         </div>
         <div id="diagnosis" class="tab-content">
@@ -294,14 +397,19 @@
         </div>
     </div>
 
-    <div id="resize-handle" class="resize-handle" aria-label="섹션 너비 조절 핸들" role="separator"></div>
+    <div id="resize-handle" class="resize-handle" aria-label="섹션 너비 조절 핸들" role="separator" aria-orientation="vertical" aria-valuemin="360" aria-valuemax="1200" aria-valuenow="520"></div>
 
     <div class="right-section">
-<<<<<<< HEAD
         <button id="mobile-timetable-back" class="mobile-timetable-back" type="button">강좌 리스트로 돌아가기</button>
-=======
->>>>>>> 48b8e935a9c0793376aec5a9050df151d5dd964e
-        <div id="timetable-title" style="text-align:center; font-weight:bold; margin-bottom:10px; background:#eef5ff; padding:8px; border-radius:6px;">나의 수강 시간표</div>
+        <div class="timetable-topbar">
+            <div id="timetable-title" class="timetable-title-card">나의 수강 시간표</div>
+            <div class="timetable-legend">
+                <span class="legend-pill legend-registered">신청 완료</span>
+                <span class="legend-pill legend-waiting">대기 신청</span>
+                <span class="legend-pill legend-overlap">시간 중복</span>
+            </div>
+        </div>
+        <div id="overlap-warning" class="timetable-alert" role="status" aria-live="polite"></div>
         <div class="grid-header">
             <div>숫자</div><div>알파</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div>
         </div>
@@ -319,11 +427,12 @@
 
 <script>
     let myRegistrations = [];
-<<<<<<< HEAD
     let myCart = [];
-=======
->>>>>>> 48b8e935a9c0793376aec5a9050df151d5dd964e
     const MAX_CREDITS = 18;
+    const USER_NAME = '김한림';
+    const USER_ID = '20231234';
+    const USER_MAJOR = ' 콘텐츠IT';
+    window.USER_MAJOR = USER_MAJOR;
 
     // 이미지 기반 졸업 자가진단 데이터
     const gradBase = {
@@ -341,7 +450,10 @@
         "스포츠웰니스": { base: 1, get: 1 }
     };
 
-<<<<<<< HEAD
+    function renderUserInfo() {
+        $('#user-meta').html(`${USER_NAME} | ${USER_ID} | <span class="user-major">${escapeHtml(USER_MAJOR)} <a class="roadmap-btn" href="software_contentit.pdf" target="_blank" rel="noopener">전공 로드맵</a></span>`);
+    }
+
     // 상단 서버 시간(현재는 로컬 PC 기준) 표시
     function formatTwoDigits(n) {
         return n < 10 ? '0' + n : n;
@@ -355,8 +467,9 @@
         const hour = formatTwoDigits(now.getHours());
         const minute = formatTwoDigits(now.getMinutes());
         const second = formatTwoDigits(now.getSeconds());
+        const millisecond = String(now.getMilliseconds()).padStart(3, '0');
 
-        const text = `${year}-${month}-${day} | ${hour}:${minute}:${second}`;
+        const text = `${year}-${month}-${day} | ${hour}:${minute}:${second}.${millisecond}`;
 
         const $time = $('#server-time');
         $time.text(text);
@@ -368,8 +481,6 @@
         $time.toggleClass('time-warning', isWarning);
     }
 
-=======
->>>>>>> 48b8e935a9c0793376aec5a9050df151d5dd964e
     // 시간표 유틸리티 함수
     function getAlphaId(idx) {
         if (idx >= 2 && idx < 5) return 'A';
@@ -396,47 +507,123 @@
         return rows.map(r => `${day}-${r}`);
     }
 
-    $(document).ready(function() {
-<<<<<<< HEAD
+    function getNumericStartTime(period) {
+        const baseHour = 9;
+        const hour = baseHour + (period - 1);
+        return `${formatTwoDigits(hour)}:00`;
+    }
+
+    function getAlphaStartTime(alpha) {
+        const alphaMap = {
+            A: '09:00',
+            B: '10:30',
+            C: '12:00',
+            D: '13:30',
+            E: '15:00',
+            F: '16:30'
+        };
+        return alphaMap[alpha] || '';
+    }
+
+    function buildLabelCell(main, sub, extraClass) {
+        const label = main === '' ? '' : `<span class="label-main">${main}</span>`;
+        const time = sub ? `<span class="label-sub">${sub}</span>` : '';
+        return `<div class="cell label-cell ${extraClass || ''}">${label}${time}</div>`;
+    }
+
+        $(document).ready(function() {
+        renderUserInfo();
         // 서버 시간(로컬) 초기화 및 1초마다 갱신
         updateServerTime();
-        setInterval(updateServerTime, 1000);
+        setInterval(updateServerTime, 47);
 
-        initThemeToggle();
-        initMobileViewToggle();
-        initMobileTimetableToggle();
-        renderGrid();
-        renderCourseList(window.courseData);
-        renderCart();
-=======
-        initThemeToggle();
-        renderGrid();
-        renderCourseList(window.courseData);
->>>>>>> 48b8e935a9c0793376aec5a9050df151d5dd964e
-        updateUI();
-        initResizeHandle();
-        
-        $('#searchInput').on('input', function() {
-            const val = $(this).val().toLowerCase();
-            const filtered = window.courseData.filter(c => 
-                c.name.toLowerCase().includes(val) || 
-                c.prof.toLowerCase().includes(val) ||
-<<<<<<< HEAD
-                c.dept.toLowerCase().includes(val) ||
-                String(c.category || '').toLowerCase().includes(val)
-=======
-                c.dept.toLowerCase().includes(val)
->>>>>>> 48b8e935a9c0793376aec5a9050df151d5dd964e
-            );
-            renderCourseList(filtered);
-            filterRegisteredList(val);
+            initThemeToggle();
+            initMobileViewToggle();
+            initMobileTimetableToggle();
+            renderGrid();
+            syncTimetableHeaderWidth();
+            refreshFilteredCourseList();
+            renderCart();
+            updateUI();
+            initResizeHandle();
+            updateSearchMeta(window.courseData.length, window.courseData.length, '');
+
+            $('#searchInput').on('input', function() {
+                refreshFilteredCourseList();
+                filterRegisteredList($(this).val().toLowerCase());
+            });
+
+            $('#clearSearchBtn').on('click', function() {
+                $('#searchInput').val('');
+                refreshFilteredCourseList();
+                filterRegisteredList('');
+                $('#searchInput').trigger('focus');
+            });
         });
-    });
+
+        function normalizeSearchText(text) {
+            return String(text || '').toLowerCase().replace(/\s+/g, '');
+        }
+
+        function getCourseSearchScore(course, keyword) {
+            const val = normalizeSearchText(keyword);
+            if (!val) return 0;
+
+            const name = normalizeSearchText(course.name);
+            const num = normalizeSearchText(course.num);
+            const prof = normalizeSearchText(course.prof);
+            const dept = normalizeSearchText(course.dept);
+            const category = normalizeSearchText(course.category);
+            const time = normalizeSearchText(translateTime(course.time));
+
+            if (name === val) return 100;
+            if (num === val) return 95;
+            if (name.startsWith(val)) return 90;
+            if (name.includes(val)) return 80;
+            if (prof.includes(val)) return 60;
+            if (category.includes(val)) return 50;
+            if (dept.includes(val)) return 35;
+            if (time.includes(val)) return 25;
+            return 0;
+        }
+
+        function getFilteredCourses(keyword) {
+            const val = normalizeSearchText(keyword);
+            if (!val) return window.courseData.slice();
+
+            return window.courseData
+                .map(c => ({ course: c, score: getCourseSearchScore(c, val) }))
+                .filter(item => item.score > 0)
+                .sort((a, b) => b.score - a.score || a.course.id - b.course.id)
+                .map(item => item.course);
+        }
+
+        function refreshFilteredCourseList() {
+            const keyword = $('#searchInput').val() || '';
+            const filtered = getFilteredCourses(keyword);
+            renderCourseList(filtered);
+            updateSearchMeta(filtered.length, window.courseData.length, keyword);
+        }
+
+        function updateSearchMeta(currentCount, totalCount, keyword) {
+            $('#search-count').text(`전체 ${totalCount}개 중 ${currentCount}개 표시`);
+            $('#search-keyword').html(keyword ? `<span class="search-keyword">검색어: ${escapeHtml(keyword)}</span>` : '');
+        }
+
+        function escapeHtml(text) {
+            return String(text)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
 
     function filterRegisteredList(keyword) {
+        const normalizedKeyword = normalizeSearchText(keyword);
         $('#registered-container .course-card').each(function() {
-            const text = $(this).text().toLowerCase();
-            $(this).toggleClass('hidden', !text.includes(keyword));
+            const text = normalizeSearchText($(this).text());
+            $(this).toggleClass('hidden', !text.includes(normalizedKeyword));
         });
     }
 
@@ -461,7 +648,6 @@
         });
     }
 
-<<<<<<< HEAD
     function initMobileViewToggle() {
         const mobileKey = 'hci-mobile-view';
         const $btn = $('#mobile-view-toggle-btn');
@@ -508,8 +694,6 @@
         });
     }
 
-=======
->>>>>>> 48b8e935a9c0793376aec5a9050df151d5dd964e
     function initResizeHandle() {
         const $container = $('.container');
         const $left = $('.left-section');
@@ -539,6 +723,11 @@
 
             $left.css('flex', `0 0 ${clampedLeft}px`);
             $right.css('flex', `0 0 ${rightWidth}px`);
+            $handle.attr({
+                'aria-valuemin': minLeft,
+                'aria-valuemax': maxLeft,
+                'aria-valuenow': Math.round(clampedLeft)
+            });
         }
 
         $handle.on('mousedown', function(e) {
@@ -564,7 +753,17 @@
             if ($left.css('flex-grow') === '0') {
                 applyWidth($left.outerWidth());
             }
+            syncTimetableHeaderWidth();
         });
+    }
+
+    function syncTimetableHeaderWidth() {
+        const grid = document.getElementById('timetable');
+        if (!grid) return;
+        const scrollbarWidth = Math.max(0, grid.offsetWidth - grid.clientWidth);
+        const scrollbarWidthValue = `${scrollbarWidth}px`;
+        $('.right-section').css('--timetable-scrollbar-width', scrollbarWidthValue);
+        $('.grid-header').css('padding-right', scrollbarWidthValue);
     }
 
     function renderGrid() {
@@ -572,18 +771,21 @@
         const grid = $('#timetable').empty();
         for (let i = 0; i < 22; i++) {
             // 숫자 교시 라벨
-            let numVal = (i % 2 === 0) ? Math.floor(i/2) : "";
+            let period = (i >= 2 && i % 2 === 0) ? Math.floor(i/2) : 0;
+            let numVal = period > 0 ? String(period) : "";
+            let numTime = period > 0 ? getNumericStartTime(period) : "";
             let numBorder = (i % 2 === 0) ? "no-border-bottom" : "";
-            grid.append(`<div class="cell label-cell ${numBorder}">${numVal}</div>`);
-            
+            grid.append(buildLabelCell(numVal, numTime, numBorder));
+
             // 알파벳 교시 라벨
             let currentAlpha = getAlphaId(i);
             let prevAlpha = getAlphaId(i-1);
             let nextAlpha = getAlphaId(i+1);
             let alphaVal = (currentAlpha !== prevAlpha) ? currentAlpha : "";
+            let alphaTime = alphaVal ? getAlphaStartTime(alphaVal) : "";
             let alphaBorder = (currentAlpha !== "" && currentAlpha === nextAlpha) ? "no-border-bottom" : "";
-            grid.append(`<div class="cell label-cell ${alphaBorder}">${alphaVal}</div>`);
-            
+            grid.append(buildLabelCell(alphaVal, alphaTime, alphaBorder));
+
             days.forEach(day => {
                 let cellBorder = (i % 2 === 0) ? "no-border-bottom" : "";
                 grid.append(`<div class="cell day-cell ${cellBorder}" id="cell-${day}-${i}"></div>`);
@@ -593,29 +795,40 @@
 
     function renderCourseList(list) {
         const container = $('#course-list').empty();
+        if (!list.length) {
+            container.append('<div class="empty-state">검색 조건에 맞는 강좌가 없습니다.<br>강좌명, 교수명, 학과명, 이수구분, 강의코드를 다시 확인해 주세요.</div>');
+            return;
+        }
+
         list.forEach(c => {
             const isFull = c.enr >= c.cap;
             const isSelected = myRegistrations.some(r => r.id === c.id);
-            const regBtnText = isSelected ? '신청됨' : (isFull ? '대기신청' : '신청');
-            const regBtnClass = isSelected ? 'btn-reg btn-reg-registered' : 'btn-reg';
+            const regBtnText = isSelected ? '취소' : (isFull ? '대기신청' : '신청');
+            const regBtnClass = isSelected ? 'btn-reg btn-reg-registered' : `btn-reg ${isFull ? 'btn-reg-waiting' : ''}`;
             const regBtnAction = isSelected ? `cancelCourse(${c.id})` : `registerCourse(${c.id})`;
+            const statusLabel = isSelected ? '<span class="status-badge status-registered">신청 완료</span>' : (isFull ? '<span class="status-badge status-full">정원 마감</span><span class="status-badge status-wait">대기 가능</span>' : '<span class="status-badge status-open">바로 신청 가능</span>');
             container.append(`
                 <div class="course-card ${isSelected ? 'selected-course' : ''}" data-id="${c.id}" onclick="showDetails(${c.id})">
-                    <span class="category-tag tag-${c.category}">${c.category}</span>
-                    <span class="course-name">${c.name}</span>
+                    <div class="course-card-topline">
+                        <div class="course-card-title">
+                            <span class="category-tag tag-${c.category}">${c.category}</span>
+                            <span class="course-name">${c.name}<span class="course-code">코드 ${c.num}</span></span>
+                        </div>
+                        <div class="course-status-badges">${statusLabel}</div>
+                    </div>
                     <div class="course-info">
-                        ${c.prof} 교수 | ${c.dept} | ${c.credit}학점<br>
-                        ${translateTime(c.time)}<br>
-                        인원: <span class="${isFull ? 'full-people' : ''}">${c.enr}</span> / ${c.cap} 
-                        (대기: <span class="${c.wait > 0 ? 'wait-people' : ''}">${c.wait}</span>)
+                        <div class="course-primary-meta">
+                            <span><strong>교수</strong> ${c.prof}</span>
+                            <span><strong>학과</strong> ${c.dept}</span>
+                            <span><strong>학점</strong> ${c.credit}학점</span>
+                        </div>
+                        <div class="course-time-line">${translateTime(c.time)}</div>
+                        <div class="course-enrollment-line">인원: <span class="${isFull ? 'full-people' : ''}">${c.enr}</span> / ${c.cap} <span>(대기: <span class="${c.wait > 0 ? 'wait-people' : ''}">${c.wait}</span>)</span></div>
                     </div>
                     <div class="btn-group">
-                        <button class="btn-syllabus" onclick="event.stopPropagation(); showSyllabus(${c.id})">강의계획서</button>
-                        <button class="${regBtnClass}" onclick="event.stopPropagation(); ${regBtnAction}">${regBtnText}</button>
-<<<<<<< HEAD
-                        <button class="btn-cart" onclick="event.stopPropagation(); addToCart(${c.id})">장바구니</button>
-=======
->>>>>>> 48b8e935a9c0793376aec5a9050df151d5dd964e
+                        <button type="button" class="btn-syllabus" onclick="event.stopPropagation(); showSyllabus(${c.id})">강의계획서</button>
+                        <button type="button" class="${regBtnClass}" onclick="event.stopPropagation(); ${regBtnAction}">${regBtnText}</button>
+                        <button type="button" class="btn-cart" onclick="event.stopPropagation(); addToCart(${c.id})">장바구니 담기</button>
                     </div>
                 </div>
             `);
@@ -627,48 +840,106 @@
         $(selector).off('mouseenter mouseleave').on('mouseenter', function() {
             const courseId = parseInt($(this).attr('data-id'));
             const course = window.courseData.find(c => c.id === courseId);
-            const isAlreadyRegistered = myRegistrations.some(r => r.id === courseId);
-            
-            let regIndices = [];
-            myRegistrations.forEach(reg => {
-                const rc = window.courseData.find(c => c.id === reg.id);
-                rc.slots.forEach(s => regIndices = regIndices.concat(getPhysicalIndices(s)));
-            });
+            if (!course) return;
 
-            course.slots.forEach(s => {
-                getPhysicalIndices(s).forEach(p => {
-                    const $cell = $(`#cell-${p}`);
-                    if (isAlreadyRegistered) {
-                        $cell.addClass('highlight-registered-focus');
-                    } else {
-                        if (regIndices.includes(p)) $cell.addClass('highlight-overlap').text("중복");
-                        else $cell.addClass('highlight-target');
-                    }
-                });
-            });
+            updateTimetableDisplay();
+            hideOverlapWarning();
+
+            const isAlreadyRegistered = myRegistrations.some(r => r.id === courseId);
+            const conflicts = isAlreadyRegistered ? [] : getCourseConflicts(course);
+
+            if (isAlreadyRegistered) {
+                renderCoursePreview(course, 'highlight-registered-focus', course.name);
+                return;
+            }
+
+            if (conflicts.length) {
+                renderCoursePreview(course, 'highlight-overlap', '시간 중복');
+                showOverlapWarning(course, conflicts);
+            } else {
+                renderCoursePreview(course, 'highlight-target', '');
+            }
         }).on('mouseleave', function() {
-            $('.day-cell').removeClass('highlight-target highlight-overlap highlight-registered-focus');
+            hideOverlapWarning();
             updateTimetableTextOnly();
         });
     }
 
-    function updateTimetableTextOnly() {
-        $('.day-cell').each(function() {
-            const id = $(this).attr('id').replace('cell-', '');
-            const reg = myRegistrations.find(r => {
-                const c = window.courseData.find(item => item.id === r.id);
-                return c.slots.some(s => getPhysicalIndices(s).includes(id));
+    function renderCoursePreview(course, stateClass, fallbackLabel) {
+        const slotsByDay = getSlotsByDay(course.slots);
+        Object.keys(slotsByDay).forEach(day => {
+            const info = slotsByDay[day];
+            const middleIndex = Math.floor((info.indices.length - 1) / 2);
+            const labelClass = getCourseLabelClass(course.name, info.indices.length);
+            info.indices.forEach((p, idx) => {
+                const $cell = $(`#cell-${p}`);
+                $cell.addClass(stateClass);
+                if (idx === 0) $cell.addClass('course-span-start');
+                else if (idx === info.indices.length - 1) $cell.addClass('course-span-end');
+                else $cell.addClass('course-span-middle');
+
+                if (idx === middleIndex && stateClass === 'highlight-overlap') {
+                    $cell.addClass(`course-cell-primary ${labelClass}`).html(`<span class="course-cell-name ${getCourseLineClass(course.name, info.indices.length)}">${fallbackLabel}</span><span class="course-cell-time">${info.label}</span>`);
+                }
             });
-            if (reg) {
-                const course = window.courseData.find(c => c.id === reg.id);
-                $(this).text(course.name);
-            } else {
-                $(this).text('');
-            }
         });
     }
 
-<<<<<<< HEAD
+    function getCourseConflicts(course) {
+        const conflictMap = {};
+        myRegistrations.forEach(reg => {
+            const registeredCourse = window.courseData.find(c => c.id === reg.id);
+            if (!registeredCourse) return;
+            const registeredIndices = [];
+            registeredCourse.slots.forEach(slot => {
+                registeredIndices.push(...getPhysicalIndices(slot));
+            });
+            course.slots.forEach(slot => {
+                getPhysicalIndices(slot).forEach(index => {
+                    if (!registeredIndices.includes(index)) return;
+                    const key = `${registeredCourse.id}-${slot}`;
+                    if (!conflictMap[key]) {
+                        conflictMap[key] = { course: registeredCourse, slots: [] };
+                    }
+                    if (!conflictMap[key].slots.includes(slot)) {
+                        conflictMap[key].slots.push(slot);
+                    }
+                });
+            });
+        });
+
+        return Object.values(conflictMap).map(item => ({
+            course: item.course,
+            time: translateSlots(item.slots)
+        }));
+    }
+
+    function translateSlots(slots) {
+        return translateTime(slots.join(','));
+    }
+
+    function buildOverlapMessage(course, conflicts) {
+        const lines = conflicts.map(conflict => `<li><strong>${course.name}</strong> 강의가 <strong>${conflict.course.name}</strong> 강의와 <strong>${conflict.time}</strong>에 겹칩니다.</li>`).join('');
+        return `<p style="margin:0 0 8px; color:var(--accent-red); font-weight:bold;">시간표가 중복되는 강좌가 있습니다.</p><ul style="margin:0; padding-left:18px; line-height:1.7;">${lines}</ul>`;
+    }
+
+    function showOverlapWarning(course, conflicts) {
+        const first = conflicts[0];
+        if (!first) return;
+        const more = conflicts.length > 1 ? ` 외 ${conflicts.length - 1}건` : '';
+        $('#overlap-warning')
+            .html(`<strong>${course.name}</strong> 강의가 <strong>${first.course.name}</strong> 강의와 <strong>${first.time}</strong>에 겹칩니다${more}.`)
+            .show();
+    }
+
+    function hideOverlapWarning() {
+        $('#overlap-warning').hide().empty();
+    }
+
+    function updateTimetableTextOnly() {
+        updateTimetableDisplay();
+    }
+
     function renderCart() {
         const container = $('#cart-container').empty();
         const $empty = $('#cart-empty-msg');
@@ -775,16 +1046,13 @@
             onDone = undefined;
         }
         options = options || {};
-=======
-    window.registerCourse = function(id) {
->>>>>>> 48b8e935a9c0793376aec5a9050df151d5dd964e
         const course = window.courseData.find(c => c.id === id);
-        
+
         if (myRegistrations.find(r => r.id === id)) {
             showModal("알림", `[${course.name}] 이미 신청된 강좌입니다.`, 'alert');
             return;
         }
-        
+
         let currentTotal = 0;
         myRegistrations.forEach(r => {
             const rc = window.courseData.find(c => c.id === r.id);
@@ -799,18 +1067,23 @@
         let regIndices = [];
         myRegistrations.forEach(r => {
             const rc = window.courseData.find(c => c.id === r.id);
-            rc.slots.forEach(s => regIndices = regIndices.concat(getPhysicalIndices(s)));
+            rc.slots.forEach(s => {
+                regIndices = regIndices.concat(getPhysicalIndices(s));
+            });
         });
         const myIndices = [];
-        course.slots.forEach(s => myIndices.push(...getPhysicalIndices(s)));
-        
-        if (myIndices.some(idx => regIndices.includes(idx))) {
-            showModal("수강신청 불가", "<p style='color:var(--accent-red); font-weight:bold;'>시간표가 중복되는 강좌가 있습니다.</p>", 'alert');
+        course.slots.forEach(s => {
+            myIndices.push(...getPhysicalIndices(s));
+        });
+
+        const conflicts = getCourseConflicts(course);
+        if (conflicts.length) {
+            showModal("수강신청 불가", buildOverlapMessage(course, conflicts), 'alert');
+            showOverlapWarning(course, conflicts);
             return;
         }
 
         const isFull = course.enr >= course.cap;
-<<<<<<< HEAD
         const skipConfirmIfNotFull = options.skipConfirmIfNotFull && !isFull;
         const suppressSuccessModal = options.suppressSuccessModal;
 
@@ -830,10 +1103,8 @@
             return;
         }
 
-=======
->>>>>>> 48b8e935a9c0793376aec5a9050df151d5dd964e
         const msg = isFull ? `정원 초과입니다. [${course.name}] 대기 신청하시겠습니까?` : `[${course.name}] 신청하시겠습니까?`;
-        
+
         showModal("수강신청 확인", msg, 'confirm', function() {
             if (isFull) {
                 course.wait += 1;
@@ -841,7 +1112,6 @@
             } else {
                 myRegistrations.push({ id: id, status: 'registered' });
             }
-<<<<<<< HEAD
             // 신청 성공 시 해당 강좌는 장바구니에서 제거
             myCart = myCart.filter(cid => cid !== id);
             if (suppressSuccessModal) {
@@ -852,9 +1122,6 @@
                     if (onDone) onDone();
                 });
             }
-=======
-            showModal("신청 완료", "정상적으로 처리되었습니다.", 'refresh');
->>>>>>> 48b8e935a9c0793376aec5a9050df151d5dd964e
         });
     };
 
@@ -872,7 +1139,9 @@
 
     function updateDiagnosis() {
         const taking = {};
-        Object.keys(gradBase).forEach(k => taking[k] = 0);
+        Object.keys(gradBase).forEach(k => {
+            taking[k] = 0;
+        });
         let totalSum = 0;
 
         myRegistrations.forEach(r => {
@@ -887,7 +1156,7 @@
             const d = gradBase[key];
             const curTaking = (key === "총학점") ? totalSum : taking[key];
             let remain = Math.max(0, d.base - d.get - curTaking);
-            
+
             tbody.append(`
                 <tr>
                     <td class="category-col">${key}</td>
@@ -904,12 +1173,9 @@
     function updateUI() {
         updateDiagnosis();
         updateTimetableDisplay();
-        renderCourseList(window.courseData);
-<<<<<<< HEAD
+        refreshFilteredCourseList();
         renderCart();
-=======
->>>>>>> 48b8e935a9c0793376aec5a9050df151d5dd964e
-        
+
         let regSum = 0; let waitSum = 0;
         myRegistrations.forEach(r => {
             const c = window.courseData.find(cd => cd.id === r.id);
@@ -926,11 +1192,11 @@
             myRegistrations.forEach(reg => {
                 const c = window.courseData.find(item => item.id === reg.id);
                 container.append(`
-                    <div class="course-card" data-id="${c.id}">
+                    <div class="course-card registered-card" data-id="${c.id}">
                         <span class="category-tag tag-${c.category}">${c.category}</span>
                         <span class="course-name">${c.name} ${reg.status === 'waiting' ? '<small style="color:var(--wait-orange)">(대기 '+reg.waitNo+'번)</small>' : ''}</span>
                         <div class="course-info">${c.prof} 교수 | ${c.credit}학점<br>${translateTime(c.time)}</div>
-                        <button class="btn-cancel" onclick="cancelCourse(${c.id})">취소</button>
+                        <button class="btn-cancel" onclick="cancelCourse(${c.id})">수강취소</button>
                     </div>
                 `);
             });
@@ -939,15 +1205,71 @@
     }
 
     function updateTimetableDisplay() {
-        $('.day-cell').removeClass('fixed-course fixed-waiting').text('');
+        $('.day-cell').removeClass('fixed-course fixed-waiting course-cell-primary large-label compact-label xcompact-label course-span-start course-span-middle course-span-end highlight-target highlight-overlap highlight-registered-focus').empty();
+        hideOverlapWarning();
         myRegistrations.forEach(reg => {
             const c = window.courseData.find(item => item.id === reg.id);
-            c.slots.forEach(s => {
-                getPhysicalIndices(s).forEach(p => {
-                    $(`#cell-${p}`).addClass(reg.status === 'waiting' ? 'fixed-waiting' : 'fixed-course').text(c.name);
+            const slotsByDay = getSlotsByDay(c.slots);
+            Object.keys(slotsByDay).forEach(day => {
+                const info = slotsByDay[day];
+                const middleIndex = Math.floor((info.indices.length - 1) / 2);
+                const labelClass = getCourseLabelClass(c.name, info.indices.length);
+                info.indices.forEach((p, idx) => {
+                    const $cell = $(`#cell-${p}`);
+                    $cell.addClass(reg.status === 'waiting' ? 'fixed-waiting' : 'fixed-course');
+                    if (idx === 0) $cell.addClass('course-span-start');
+                    else if (idx === info.indices.length - 1) $cell.addClass('course-span-end');
+                    else $cell.addClass('course-span-middle');
+
+                    if (idx === middleIndex) {
+                        $cell.addClass(`course-cell-primary ${labelClass}`).html(`<span class="course-cell-name ${getCourseLineClass(c.name, info.indices.length)}">${c.name}</span><span class="course-cell-time">${info.label}</span>`);
+                    }
                 });
             });
         });
+    }
+
+    function getCourseLabelClass(name, spanCount) {
+        if (spanCount >= 3 && name.length <= 6) return 'large-label';
+        if (spanCount <= 2 || name.length >= 12) return 'xcompact-label';
+        if (name.length >= 8) return 'compact-label';
+        return '';
+    }
+
+    function getCourseLineClass(name, spanCount) {
+        return (spanCount <= 2 && name.length >= 9) ? 'single-line-label' : '';
+    }
+
+    function getSlotsByDay(slots) {
+        const map = {};
+        slots.forEach(slot => {
+            const normalized = slot.toUpperCase();
+            const day = normalized.substring(0, 3);
+            const rawCode = normalized.substring(3).replace('-', '');
+            if (!map[day]) map[day] = { rawCodes: [], indices: [] };
+            map[day].rawCodes.push(rawCode);
+            map[day].indices = map[day].indices.concat(getPhysicalIndices(normalized));
+        });
+
+        Object.keys(map).forEach(day => {
+            map[day].indices = Array.from(new Set(map[day].indices)).sort((a, b) => {
+                return parseInt(a.split('-')[1], 10) - parseInt(b.split('-')[1], 10);
+            });
+            map[day].label = buildDaySlotLabel(map[day].rawCodes);
+        });
+        return map;
+    }
+
+    function buildDaySlotLabel(rawCodes) {
+        const numericCodes = rawCodes.filter(code => !isNaN(code)).map(Number).sort((a, b) => a - b);
+        if (numericCodes.length) {
+            const first = numericCodes[0];
+            const last = numericCodes[numericCodes.length - 1];
+            return first === last ? `${first}교시` : `${first}-${last}교시`;
+        }
+        const alphaCodes = Array.from(new Set(rawCodes)).sort();
+        if (alphaCodes.length === 1) return `${alphaCodes[0]}교시`;
+        return `${alphaCodes[0]}-${alphaCodes[alphaCodes.length - 1]}교시`;
     }
 
     window.openTab = function(tabId, btn) {
@@ -956,35 +1278,66 @@
     };
 
     function translateTime(timeStr) {
-        return timeStr.toUpperCase().replace(/MON/g,'월').replace(/TUE/g,'화').replace(/WED/g,'수').replace(/THU/g,'목').replace(/FRI/g,'금').replace(/-/g,'');
+        const dayMap = { MON: '월', TUE: '화', WED: '수', THU: '목', FRI: '금' };
+        const grouped = {};
+
+        timeStr.toUpperCase().split(',').forEach(part => {
+            const day = part.substring(0, 3);
+            const code = part.substring(3).replace('-', '');
+            if (!grouped[day]) grouped[day] = [];
+            grouped[day].push(code);
+        });
+
+        return Object.keys(grouped).map(day => {
+            const codes = grouped[day];
+            const numericCodes = codes.filter(code => !isNaN(code)).map(Number).sort((a, b) => a - b);
+            const label = numericCodes.length === codes.length
+                ? buildConsecutivePeriodLabel(numericCodes)
+                : Array.from(new Set(codes)).sort().join(', ');
+            return `${dayMap[day] || day} ${label}교시`;
+        }).join(' · ');
+    }
+
+    function buildConsecutivePeriodLabel(periods) {
+        if (!periods.length) return '';
+        const groups = [];
+        let start = periods[0];
+        let prev = periods[0];
+
+        for (let i = 1; i < periods.length; i++) {
+            if (periods[i] === prev + 1) {
+                prev = periods[i];
+                continue;
+            }
+            groups.push(start === prev ? `${start}` : `${start}-${prev}`);
+            start = periods[i];
+            prev = periods[i];
+        }
+        groups.push(start === prev ? `${start}` : `${start}-${prev}`);
+        return groups.join(', ');
     }
 
     function showModal(title, content, type, onConfirm) {
         $('#modalTitle').text(title); $('#modalContent').html(content);
         const footer = $('#modalFooter').empty();
-        
+
         if (type === 'confirm') {
             footer.append($('<button class="btn-modal-cancel">취소</button>').click(closeModal));
             footer.append($('<button class="btn-modal-confirm">확인</button>').click(() => { closeModal(); if(onConfirm) onConfirm(); }));
         } else if (type === 'refresh') {
-<<<<<<< HEAD
             footer.append($('<button class="btn-modal-confirm">확인</button>').click(() => { closeModal(); updateUI(); if(onConfirm) onConfirm(); }));
         } else {
             footer.append($('<button class="btn-modal-close">닫기</button>').click(() => { closeModal(); if(onConfirm) onConfirm(); }));
-=======
-            footer.append($('<button class="btn-modal-confirm">확인</button>').click(() => { closeModal(); updateUI(); }));
-        } else {
-            footer.append($('<button class="btn-modal-close">닫기</button>').click(closeModal));
->>>>>>> 48b8e935a9c0793376aec5a9050df151d5dd964e
         }
         $('#commonModal').css('display', 'flex');
     }
 
     function closeModal() { $('#commonModal').hide(); }
     window.showSyllabus = (id) => showModal("강의계획서", "본 강의는 전공 역량 강화를 위한 수업입니다.<br>출석 20%, 중간 30%, 기말 40%, 과제 10%", 'info');
-    window.showDetails = (id) => { 
-        const c = window.courseData.find(x=>x.id===id); 
-        showModal("강의 상세 정보", `과목번호: ${c.num}<br>교수명: ${c.prof}<br>대상학과: ${c.dept}<br>이수구분: ${c.category}<br>학점: ${c.credit}학점`, 'info'); 
+    window.showDetails = (id) => {
+        const c = window.courseData.find(x=>x.id===id);
+        const remain = Math.max(0, c.cap - c.enr);
+        showModal("강의 상세 정보", `강의코드: ${c.num}<br>교수명: ${c.prof}<br>대상학과: ${c.dept}<br>이수구분: ${c.category}<br>학점: ${c.credit}학점<br>수업시간: ${translateTime(c.time)}<br>신청인원: ${c.enr} / ${c.cap} (잔여 ${remain}석)<br>대기인원: ${c.wait}`, 'info');
     };
 </script>
 </body>
