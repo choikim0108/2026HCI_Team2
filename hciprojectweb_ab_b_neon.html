@@ -3,12 +3,18 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>한림대 수강신청 Prototype</title>
+    <title>한림대 수강신청 Prototype B2 - 네온 다크</title>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="courses.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 
     <style>
+        @property --credit-fill {
+            syntax: '<percentage>';
+            inherits: false;
+            initial-value: 0%;
+        }
+
         :root {
             --hallym-blue: #00305d;
             --hallym-blue-bright: #0058a8;
@@ -27,7 +33,6 @@
             --wait-orange: #ff7a00;
             --text-main: #22384d;
             --text-muted: #536576;
-            --mobile-shell-width: 430px;
         }
 
         body { margin: 0; padding: 0; font-family: 'Noto Sans KR', sans-serif; font-size: 15.5px; background: var(--bg-gray); color: var(--text-main); display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
@@ -45,8 +50,6 @@
         .roadmap-btn:hover { background: rgba(255,255,255,0.3); }
         .theme-toggle-btn { background: rgba(255,255,255,0.2); color: #fff; border: 1px solid rgba(255,255,255,0.35); border-radius: 8px; padding: 7px 12px; font-size: 0.78em; font-weight: 700; cursor: pointer; min-height: 38px; min-width: 88px; display: inline-flex; align-items: center; justify-content: center; }
         .theme-toggle-btn:hover { background: rgba(255,255,255,0.3); }
-        .mobile-toggle-btn { background: rgba(255,255,255,0.12); color: #fff; border: 1px solid rgba(255,255,255,0.35); border-radius: 8px; padding: 7px 12px; font-size: 0.78em; font-weight: 700; cursor: pointer; min-height: 38px; min-width: 88px; display: inline-flex; align-items: center; justify-content: center; }
-        .mobile-toggle-btn:hover { background: rgba(255,255,255,0.24); }
         .container { display: flex; flex: 1; overflow: hidden; padding: 15px; gap: 0; align-items: stretch; }
 
         /* Left Section Style */
@@ -58,24 +61,29 @@
         .search-box { padding: 18px 18px 14px; border-bottom: 1px solid #edf1f5; background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%); }
         .search-row { display: flex; gap: 10px; align-items: center; }
         .search-input-wrap { position: relative; flex: 1; min-width: 0; }
-        .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #7390aa; font-size: 1.05em; pointer-events: none; }
-        .search-box input { width: 100%; padding: 12px 14px 12px 42px; border: 1px solid #d5dee8; border-radius: 10px; box-sizing: border-box; font-size: 0.98em; min-height: 48px; }
+        .search-box input { width: 100%; padding: 12px 14px; border: 1px solid #d5dee8; border-radius: 10px; box-sizing: border-box; font-size: 0.98em; min-height: 48px; }
         .search-box input:focus { outline: none; border-color: #74a9dd; box-shadow: 0 0 0 4px rgba(116, 169, 221, 0.16); }
         .search-clear-btn { flex: 0 0 auto; min-width: 76px; min-height: 48px; padding: 11px 12px; border: 1px solid #d5dee8; border-radius: 10px; background: #f8fbfe; color: var(--hallym-blue); font-weight: 700; cursor: pointer; }
         .search-clear-btn:hover { background: #edf5fc; }
         .search-helper { margin-top: 10px; font-size: 0.8em; color: #607286; line-height: 1.5; }
+        .search-filter-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+        .search-scope-chip { border: 1px solid #d5dee8; border-radius: 999px; background: #f8fbfe; color: #526b83; padding: 5px 10px; font-size: 0.76em; font-weight: 800; cursor: pointer; transition: 0.2s; }
+        .search-scope-chip:hover { background: #edf5fc; border-color: #a9c7e4; }
+        .search-scope-chip.active { background: var(--hallym-blue); border-color: var(--hallym-blue); color: #fff; }
         .search-meta { margin-top: 10px; display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: 0.78em; color: #6c7d90; }
         .search-count { font-weight: 700; color: var(--hallym-blue); }
         .search-keyword { padding: 3px 8px; border-radius: 999px; background: #eef5ff; color: #285f92; font-weight: 700; }
 
-        .summary-bar { background: #f1f3f5; padding: 12px 15px; font-size: 0.9em; text-align: center; font-weight: bold; border-bottom: 1px solid #ddd; min-height: 48px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; }
+        .summary-bar { background: #f1f3f5; padding: 12px 15px; font-size: 0.9em; text-align: center; font-weight: bold; border-bottom: 1px solid #ddd; min-height: 48px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; gap: 12px; }
         .summary-bar .total-label { color: #333; }
         .summary-bar .wait-val { color: var(--wait-orange); }
+        .credit-ring { --credit-percent: 0%; --credit-fill: 0%; display: none; width: 54px; height: 54px; border-radius: 50%; background: conic-gradient(var(--hallym-blue-bright) var(--credit-fill), #dbe8f4 0); place-items: center; flex: 0 0 auto; transition: background 0.5s ease; }
+        .credit-ring::before { content: attr(data-label); display: grid; place-items: center; width: 39px; height: 39px; border-radius: 50%; background: #fff; color: var(--hallym-blue); font-size: 0.68em; font-weight: 900; line-height: 1.05; white-space: pre-line; }
 
         .tabs { display: flex; background: #f8f9fa; border-bottom: 1px solid #ddd; align-items: stretch; }
-        .tab-btn { flex: 1; min-height: 50px; padding: 12px 10px; border: none; cursor: pointer; font-weight: bold; background: #f8f9fa; color: #666; transition: 0.2s; display: flex; align-items: center; justify-content: center; text-align: center; }
+        .tab-btn { flex: 1; min-height: 50px; padding: 12px 10px; border: none; cursor: pointer; font-weight: bold; background: #f8f9fa; color: #666; transition: 0.2s; display: flex; align-items: center; justify-content: center; text-align: center; white-space: normal; word-break: keep-all; overflow-wrap: normal; line-height: 1.25; }
         .tab-btn.active { background: white; color: var(--hallym-blue); border-bottom: 3px solid var(--hallym-blue); }
-        .tab-content { flex: 1; overflow-y: auto; padding: 15px; display: none; }
+        .tab-content { flex: 1; min-height: 0; overflow-y: auto; padding: 15px; display: none; }
         .tab-content.active { display: block; }
 
         /* Category Tag System */
@@ -139,38 +147,6 @@
         .btn-cart-small { padding: 3px 6px; font-size: 0.72em; border-radius: 4px; border: 1px solid #ccc; background: #f8f9fa; cursor: pointer; }
         .btn-cart-small:hover { background: #e9ecef; }
 
-        /* Mobile simulation mode (visual only) */
-        .mobile-timetable-toggle { display: none; margin: 8px 0 4px; padding: 8px 12px; font-size: 0.8em; border-radius: 8px; border: 1px solid #ccc; background: #f8f9fa; cursor: pointer; font-weight: 600; box-sizing: border-box; width: 100%; }
-        .mobile-timetable-toggle:hover { background: #e9ecef; }
-
-        body.mobile-sim { background: #0f1722; }
-        body.mobile-sim header,
-        body.mobile-sim .container { max-width: var(--mobile-shell-width); width: var(--mobile-shell-width); margin: 0 auto; }
-        body.mobile-sim header { padding: 10px 18px; border-bottom-left-radius: 18px; border-bottom-right-radius: 18px; box-shadow: 0 6px 18px rgba(0,0,0,0.45); align-items: flex-start; }
-        body.mobile-sim .header-main { flex: 1; }
-        body.mobile-sim .header-left { font-size: 1.35em; letter-spacing: 1.5px; margin-bottom: 6px; }
-        body.mobile-sim .header-time-row,
-        body.mobile-sim .header-user-row { font-size: 0.85em; }
-        body.mobile-sim .header-actions { gap: 10px; flex-direction: column; align-items: stretch; }
-        body.mobile-sim .server-time,
-        body.mobile-sim .user-meta { display: inline-flex; align-items: center; padding: 6px 14px; border-radius: 999px; background: rgba(0,0,0,0.35); }
-        body.mobile-sim .roadmap-btn { border-radius: 999px; font-size: 0.7em; padding: 2px 7px; }
-        body.mobile-sim .mobile-toggle-btn,
-        body.mobile-sim .theme-toggle-btn { border-radius: 999px; padding: 6px 8px; font-size: 0.7em; min-width: 96px; }
-        body.mobile-sim .container { flex-direction: column; padding: 10px 12px 20px; box-sizing: border-box; }
-        body.mobile-sim .resize-handle { display: none; }
-        body.mobile-sim .left-section,
-        body.mobile-sim .right-section { flex: 0 0 auto; width: 100%; border-radius: 18px; }
-
-        body.mobile-sim .mobile-timetable-toggle { display: block; }
-        body.mobile-sim .right-section { display: none; }
-        body.mobile-sim.mobile-timetable-open .left-section { display: none; }
-        body.mobile-sim.mobile-timetable-open .right-section { display: flex; }
-
-        .mobile-timetable-back { display: none; margin-bottom: 8px; padding: 6px 10px; font-size: 0.8em; border-radius: 6px; border: 1px solid #ccc; background: #f8f9fa; cursor: pointer; font-weight: 600; }
-        .mobile-timetable-back:hover { background: #e9ecef; }
-        body.mobile-sim.mobile-timetable-open .mobile-timetable-back { display: inline-block; }
-
         /* Right Section & Timetable */
         .right-section { --timetable-scrollbar-width: 0px; flex: 2.1; background: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); display: flex; flex-direction: column; position: relative; box-sizing: border-box; min-width: 0; }
         .timetable-topbar { display: flex; justify-content: space-between; align-items: stretch; gap: 12px; margin-bottom: 12px; }
@@ -178,28 +154,41 @@
         .timetable-legend { min-width: 250px; display: flex; flex-wrap: wrap; align-content: center; justify-content: center; gap: 8px; padding: 10px 12px; background: #f8fbff; border: 1px solid #e3edf8; border-radius: 10px; min-height: 48px; box-sizing: border-box; }
         .timetable-alert { display: none; margin: -2px 0 12px; padding: 11px 14px; border: 1px solid #ff9aac; border-left: 5px solid var(--overlap-red); border-radius: 10px; background: #fff4f6; color: var(--overlap-red-deep); font-size: 0.86em; font-weight: 700; line-height: 1.55; box-shadow: 0 4px 12px rgba(242, 53, 87, 0.08); }
         .timetable-alert strong { color: #7f0d2b; }
-        .legend-pill { display: inline-flex; align-items: center; gap: 6px; font-size: 0.76em; color: #496173; font-weight: 700; }
+        .legend-pill { display: inline-flex; align-items: center; gap: 7px; font-size: 0.9em; color: #496173; font-weight: 800; }
         .legend-pill::before { content: ''; width: 10px; height: 10px; border-radius: 999px; display: inline-block; }
         .legend-registered::before { background: var(--registered-blue-border); }
         .legend-waiting::before { background: #b9c1ca; }
         .legend-overlap::before { background: var(--overlap-pastel-red); }
-        .grid-header { display: grid; grid-template-columns: 82px 82px repeat(5, 1fr); padding-right: var(--timetable-scrollbar-width); background: #f8f9fa; border: 1px solid var(--timetable-border); text-align: center; font-weight: bold; font-size: 0.82em; box-sizing: border-box; }
+        .grid-header { display: grid; grid-template-columns: 82px 82px repeat(5, minmax(68px, 1fr)) var(--timetable-scrollbar-width); min-width: calc(82px + 82px + (68px * 5) + var(--timetable-scrollbar-width)); background: #f8f9fa; border: 1px solid var(--timetable-border); text-align: center; font-weight: bold; font-size: 0.82em; box-sizing: border-box; overflow: hidden; }
+        .grid-header::after { content: ''; min-height: 40px; border-left: 1px solid var(--timetable-border); box-sizing: border-box; }
         .grid-header div { padding: 10px 0; border-right: 1px solid var(--timetable-border); min-height: 40px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; }
-        .grid-container { display: grid; grid-template-columns: 82px 82px repeat(5, 1fr); grid-template-rows: repeat(22, 38px); background: var(--timetable-border); border: 1px solid var(--timetable-border); flex: 1; overflow-y: auto; }
+        .grid-container { position: relative; display: grid; grid-template-columns: 82px 82px repeat(5, minmax(68px, 1fr)); grid-template-rows: repeat(20, 38px); min-width: calc(82px + 82px + (68px * 5)); background: var(--timetable-border); border: 1px solid var(--timetable-border); flex: 1; overflow-y: auto; scrollbar-gutter: stable; }
+        .course-block-layer { position: absolute; inset: 0; pointer-events: none; z-index: 5; }
+        .course-overlay-block { position: absolute; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; border-radius: 10px; text-align: center; padding: 6px 8px; box-sizing: border-box; font-weight: 800; line-height: 1.12; overflow: hidden; box-shadow: 0 5px 14px rgba(0, 48, 93, 0.16); }
+        .course-overlay-block .course-cell-name { max-width: 100%; min-width: 0; font-size: 15px; word-break: keep-all; overflow-wrap: normal; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .course-overlay-block .course-cell-time { max-width: 100%; font-size: 12px; opacity: 0.92; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .course-overlay-block.large-label .course-cell-name { font-size: 17px; }
+        .course-overlay-block.compact-label .course-cell-name { font-size: 13.5px; }
+        .course-overlay-block.xcompact-label .course-cell-name { font-size: 12.5px; }
+        .course-overlay-registered { background: var(--registered-blue); border: 2px solid var(--registered-blue-border); color: #0d3559; }
+        .course-overlay-waiting { background: #f1f3f5; border: 2px dashed #9aa8b5; color: #66717d; }
+        .course-overlay-overlap { background: var(--overlap-red-soft); border: 2px solid var(--overlap-red); color: var(--overlap-red-deep); }
+        .course-overlay-focus { background: #e2f4ff; border: 2px solid var(--highlight-blue); color: #00547a; box-shadow: 0 0 0 3px rgba(0, 174, 232, 0.16), 0 5px 14px rgba(0, 48, 93, 0.12); }
 
         .cell { background: white; display: flex; align-items: center; justify-content: center; font-size: 0.72em; color: #888; border-right: 1px solid var(--timetable-border); border-bottom: 1px solid #f0f0f0; line-height: 1.2; text-align: center; word-break: break-all; padding: 2px; box-sizing: border-box; }
         .no-border-bottom { border-bottom: none !important; }
         .label-cell { background: #f8f9fa; color: #333; font-weight: 500; flex-direction: column; gap: 2px; padding: 4px 2px; }
         .label-main { font-size: 0.78em; font-weight: 700; line-height: 1.1; color: #22384d; }
-        .label-sub { font-size: 0.62em; line-height: 1.1; color: #6a7f93; white-space: nowrap; }
+        .label-sub { font-size: 11px; line-height: 1.12; color: #4f6f8d; white-space: nowrap; font-weight: 700; }
         .day-cell { word-break: keep-all; padding: 4px; }
-        .day-cell.course-cell-primary { flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-weight: 700; color: #0d3559; padding: 4px 6px; }
-        .day-cell.course-cell-primary .course-cell-name { font-size: 15px; line-height: 1.12; word-break: keep-all; overflow-wrap: anywhere; max-width: 100%; }
+        .day-cell.course-cell-primary { flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-weight: 700; color: #0d3559; padding: 4px 6px; position: relative; z-index: 2; }
+        .day-cell.course-cell-primary .course-cell-name { font-size: 15px; line-height: 1.12; word-break: keep-all; overflow-wrap: normal; max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .day-cell.course-cell-primary .course-cell-time { font-size: 12px; opacity: 0.92; line-height: 1.1; }
         .day-cell.course-cell-primary.large-label .course-cell-name { font-size: 17px; }
         .day-cell.course-cell-primary.compact-label .course-cell-name { font-size: 13.5px; }
         .day-cell.course-cell-primary.xcompact-label .course-cell-name { font-size: 12.5px; }
         .day-cell.course-cell-primary .course-cell-name.single-line-label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .day-cell.course-cell-primary.even-span-label { transform: translateY(50%); }
         .day-cell.course-span-start { border-bottom-color: transparent !important; }
         .day-cell.course-span-middle { border-top-color: transparent !important; border-bottom-color: transparent !important; }
         .day-cell.course-span-end { border-top-color: transparent !important; }
@@ -210,6 +199,15 @@
         .highlight-registered-focus { background-color: var(--overlap-red-soft) !important; box-shadow: inset 0 0 0 2px var(--overlap-red) !important; z-index: 10; color: var(--overlap-red-deep) !important; }
         .highlight-overlap { background-color: var(--overlap-red-soft) !important; color: var(--overlap-red-deep) !important; font-weight: bold !important; border-color: #ff7f96 !important; box-shadow: inset 0 0 0 2px var(--overlap-red) !important; z-index: 12; }
         .highlight-target { background-color: #e3f2fd !important; color: transparent !important; }
+        .fixed-course.course-span-start { border-bottom-color: var(--registered-blue) !important; }
+        .fixed-course.course-span-middle { border-top-color: var(--registered-blue) !important; border-bottom-color: var(--registered-blue) !important; }
+        .fixed-course.course-span-end { border-top-color: var(--registered-blue) !important; }
+        .fixed-waiting.course-span-start { border-bottom-color: #f1f3f5 !important; }
+        .fixed-waiting.course-span-middle { border-top-color: #f1f3f5 !important; border-bottom-color: #f1f3f5 !important; }
+        .fixed-waiting.course-span-end { border-top-color: #f1f3f5 !important; }
+        .highlight-overlap.course-span-start { border-bottom-color: var(--overlap-red-soft) !important; }
+        .highlight-overlap.course-span-middle { border-top-color: var(--overlap-red-soft) !important; border-bottom-color: var(--overlap-red-soft) !important; }
+        .highlight-overlap.course-span-end { border-top-color: var(--overlap-red-soft) !important; }
 
         /* Diagnosis Table Style */
         .diag-table { width: 100%; border-collapse: collapse; font-size: 0.82em; margin-top: 5px; }
@@ -277,20 +275,27 @@
         body.dark-mode .user-meta,
         body.dark-mode #cart-empty-msg,
         body.dark-mode #empty-msg,
-        body.dark-mode .btn-cart-small,
-        body.dark-mode .mobile-timetable-back,
-        body.dark-mode .mobile-timetable-toggle { color: #dbe7f5 !important; }
+        body.dark-mode .btn-cart-small { color: #dbe7f5 !important; }
         body.dark-mode .summary-bar { color: #d7e1ef; }
         body.dark-mode .course-time-line { color: #8fc6ff; }
         body.dark-mode .full-people { color: #ff9f9f !important; }
         body.dark-mode .wait-people { color: #ffc978 !important; }
         body.dark-mode .diag-table tbody tr:nth-child(even) { background: #202b38; }
         body.dark-mode .diag-table tbody tr:hover { background: #263443; }
-        body.dark-mode .btn-cart-small,
-        body.dark-mode .mobile-timetable-back,
-        body.dark-mode .mobile-timetable-toggle { background: #243142; border-color: #3b4a61; }
+        body.dark-mode .btn-cart-small { background: #243142; border-color: #3b4a61; }
         body.dark-mode .fixed-course { background-color: #1c4760 !important; border-color: #5cb6ff !important; color: #edf8ff !important; }
+        body.dark-mode .fixed-course.course-span-start { border-bottom-color: #1c4760 !important; }
+        body.dark-mode .fixed-course.course-span-middle { border-top-color: #1c4760 !important; border-bottom-color: #1c4760 !important; }
+        body.dark-mode .fixed-course.course-span-end { border-top-color: #1c4760 !important; }
         body.dark-mode .fixed-waiting { background-color: #374454 !important; border-color: #7b8a9c !important; color: #eef3f9 !important; }
+        body.dark-mode .fixed-waiting.course-span-start { border-bottom-color: #374454 !important; }
+        body.dark-mode .fixed-waiting.course-span-middle { border-top-color: #374454 !important; border-bottom-color: #374454 !important; }
+        body.dark-mode .fixed-waiting.course-span-end { border-top-color: #374454 !important; }
+        body.dark-mode .credit-ring::before { background: #1e2835; color: #dbe7f5; }
+        body.dark-mode .course-overlay-registered { background: #1c4760; border-color: #5cb6ff; color: #edf8ff; }
+        body.dark-mode .course-overlay-waiting { background: #374454; border-color: #7b8a9c; color: #eef3f9; }
+        body.dark-mode .course-overlay-overlap { background: #5a2d34; border-color: #ff7a7a; color: #ffd0d0; }
+        body.dark-mode .course-overlay-focus { background: #173f55; border-color: #4cc9f0; color: #e9fbff; }
         body.dark-mode .status-open { background: #1d4a36; color: #c2efd7; }
         body.dark-mode .status-wait { background: #5a3b1f; color: #ffd7b5; }
         body.dark-mode .status-full { background: #542f35; color: #ffd0d0; }
@@ -305,6 +310,127 @@
         body.dark-mode .cell { border-color: #324355; }
         body.dark-mode .course-info,
         body.dark-mode #empty-msg { color: #9fb0c6 !important; }
+        body.dark-mode .empty-state { background: #202b38 !important; color: #c5d2e4 !important; border-color: #3b4a61 !important; }
+        body.dark-mode .btn-modal-cancel { background: #243142; color: #dbe7f5; border: 1px solid #3b4a61; }
+        body.dark-mode .btn-lookup { background: #243142; color: #dbe7f5; border-color: #3b4a61; }
+        body.dark-mode .val-reg { color: #9ed0ff; }
+        body.dark-mode .val-remain { color: #ffd0d0; }
+        body.dark-mode .search-scope-chip { background: #17212e; color: #d7e1ef; border-color: #3a4b61; }
+        body.dark-mode .search-scope-chip.active { background: #2f6fb0; color: #ffffff; border-color: #5c9ed8; }
+        body.dark-mode.variant-credit,
+        body.dark-mode.variant-night,
+        body.dark-mode.variant-cardflow { background: #141a22; color: #d7e1ef; }
+        body.dark-mode.variant-credit .left-section,
+        body.dark-mode.variant-credit .search-box,
+        body.dark-mode.variant-credit .tabs,
+        body.dark-mode.variant-credit .summary-bar,
+        body.dark-mode.variant-credit .tab-btn { background: #1e2835; color: #d7e1ef; border-color: #324355; }
+        body.dark-mode.variant-night .left-section,
+        body.dark-mode.variant-night .right-section,
+        body.dark-mode.variant-night .search-box,
+        body.dark-mode.variant-night .summary-bar,
+        body.dark-mode.variant-night .tabs,
+        body.dark-mode.variant-night .tab-btn,
+        body.dark-mode.variant-night .course-card { background: #1e2835; color: #d7e1ef; border-color: #324355; }
+        body.dark-mode.variant-night .tab-btn.active { background: #243142; color: #9ed0ff; border-bottom-color: #5c9ed8; }
+
+        body.variant-credit { --hallym-blue: #071827; --hallym-blue-bright: #059669; --bg-gray: #e8edf2; background: #e8edf2; flex-direction: row; }
+        body.variant-credit header { flex: 0 0 238px; width: 238px; height: 100vh; flex-direction: column; justify-content: flex-start; align-items: stretch; padding: 26px 22px; background: linear-gradient(180deg, #071827 0%, #0d2438 100%); border-right: 1px solid rgba(255,255,255,0.12); }
+        body.variant-credit .header-left { font-size: 1.35em; letter-spacing: 0.02em; white-space: normal; }
+        body.variant-credit .header-left::after { content: 'Dashboard UI'; display: block; margin-top: 6px; color: #91a4b7; font-size: 0.56em; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+        body.variant-credit .header-main { gap: 16px; }
+        body.variant-credit .header-time-row, body.variant-credit .header-user-row { padding: 12px 0; border-top: 1px solid rgba(255,255,255,0.12); }
+        body.variant-credit .header-user-row { display: block; }
+        body.variant-credit .server-time, body.variant-credit .user-meta { text-align: left; font-size: 0.82em; color: #dbeafe; }
+        body.variant-credit .user-meta { display: flex; flex-direction: column; align-items: flex-start; gap: 7px; line-height: 1.25; min-height: 0; word-break: keep-all; }
+        body.variant-credit .user-meta .meta-line { display: block; }
+        body.variant-credit .user-major-text { color: #dbeafe; font-weight: 500; }
+        body.variant-credit .user-major { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+        body.variant-credit .header-actions { margin-top: auto; flex-direction: column; align-items: center; gap: 12px; padding-top: 18px; }
+        body.variant-credit .theme-toggle-btn { position: relative; width: 166px; min-width: 166px; min-height: 38px; justify-content: center; padding: 6px 44px 6px 14px; border-radius: 999px; background: rgba(255,255,255,0.08); color: #dbeafe; text-align: center; }
+        body.variant-credit .theme-toggle-btn::after { content: ''; position: absolute; right: 8px; top: 50%; width: 24px; height: 24px; transform: translateY(-50%); border-radius: 999px; background: #94a3b8; box-shadow: 0 2px 6px rgba(0,0,0,0.28); transition: 0.2s ease; }
+        body.variant-credit.dark-mode .theme-toggle-btn { background: #10b981; color: #052e24; border-color: rgba(255,255,255,0.35); }
+        body.variant-credit.dark-mode .theme-toggle-btn::after { right: 134px; background: #ffffff; }
+        body.variant-credit .container { flex: 1 1 auto; min-width: 0; height: 100vh; padding: 18px; gap: 18px; }
+        body.variant-credit .resize-handle { display: block; flex: 0 0 14px; width: 14px; }
+        body.variant-credit .resize-handle::before { background: rgba(7, 24, 39, 0.32); }
+        body.variant-credit .left-section { flex: 0 0 380px; border-radius: 22px; background: #0f2437; color: #e8f3ff; box-shadow: 0 18px 42px rgba(6, 24, 38, 0.28); }
+        body.variant-credit .search-box, body.variant-credit .tabs, body.variant-credit .summary-bar, body.variant-credit .tab-btn { background: transparent; border-color: rgba(255,255,255,0.12); color: #e8f3ff; }
+        body.variant-credit .summary-bar { order: -1; justify-content: space-between; text-align: left; min-height: 92px; padding: 18px; background: rgba(255,255,255,0.08); }
+        body.variant-credit .credit-ring { display: grid; width: 72px; height: 72px; background: conic-gradient(#10b981 var(--credit-fill), rgba(255,255,255,0.16) 0); }
+        body.variant-credit .credit-ring::before { width: 52px; height: 52px; background: #0f2437; color: #e8f3ff; }
+        body.variant-credit .search-helper, body.variant-credit .search-meta, body.variant-credit .course-info, body.variant-credit .course-enrollment-line { color: #b9c9d9; }
+        body.variant-credit .course-card { border-left: 5px solid #10b981; background: #ffffff; color: #22384d; border-radius: 18px; }
+        body.variant-credit .right-section { flex: 1 1 auto; border-radius: 22px; overflow-x: auto; }
+        body.variant-credit .timetable-title-card::after { content: ' · Sidebar Dashboard'; color: #059669; margin-left: 6px; }
+        body.variant-night { --hallym-blue: #1d4ed8; --hallym-blue-bright: #2563eb; --bg-gray: #eef2f6; --text-main: #111827; background: #eef2f6; font-family: 'Noto Sans KR', sans-serif; }
+        body.variant-night header { padding: 10px 22px; align-items: center; background: #0f172a; border-bottom: 1px solid #1e293b; }
+        body.variant-night .header-main { flex: 1; flex-direction: row; align-items: center; gap: 18px; }
+        body.variant-night .header-left::after { content: ' UI_C · TABLE'; margin-left: 10px; padding: 3px 8px; border-radius: 999px; background: #dbeafe; color: #1d4ed8; font-size: 0.72em; }
+        body.variant-night .server-time, body.variant-night .user-meta { font-size: 0.78em; color: #dbeafe; }
+        body.variant-night .container { gap: 12px; padding: 12px; }
+        body.variant-night .resize-handle { display: none; }
+        body.variant-night .left-section { flex: 1.72; border-radius: 6px; box-shadow: none; border: 1px solid #d1d9e6; }
+        body.variant-night .right-section { flex: 1; border-radius: 6px; box-shadow: none; border: 1px solid #d1d9e6; overflow-x: auto; }
+        body.variant-night .search-box, body.variant-night .summary-bar, body.variant-night .tabs { background: #ffffff; border-color: #d1d9e6; }
+        body.variant-night .summary-bar { min-height: 38px; justify-content: flex-start; font-size: 0.78em; padding: 8px 12px; }
+        body.variant-night .tab-btn { min-height: 38px; background: #f8fafc; font-size: 0.76em; letter-spacing: 0.04em; text-transform: uppercase; }
+        body.variant-night .tab-btn.active { background: #fff; border-bottom-color: #2563eb; color: #1d4ed8; }
+        body.variant-night #course-list { padding: 0; }
+        body.variant-night .course-card { display: grid; grid-template-columns: minmax(180px, 1.2fr) minmax(160px, 1fr) minmax(180px, 220px); align-items: center; gap: 10px; margin: 0; padding: 12px; border-width: 0 0 1px; border-radius: 0; box-shadow: none; min-width: 0; }
+        body.variant-night .course-card-topline { margin: 0; min-width: 0; }
+        body.variant-night .course-card-title, body.variant-night .course-info, body.variant-night .btn-group { min-width: 0; }
+        body.variant-night .course-info { font-size: 0.82em; line-height: 1.4; }
+        body.variant-night .btn-group { margin: 0; gap: 5px; }
+        body.variant-night .btn-reg, body.variant-night .btn-syllabus, body.variant-night .btn-cart { min-height: 30px; border-radius: 5px; font-size: 0.7em; padding: 5px 7px; }
+        body.variant-night .timetable-title-card::after { content: ' · Table Ops'; color: #2563eb; margin-left: 6px; }
+        body.variant-cardflow { --hallym-blue: #9f1239; --hallym-blue-bright: #e11d48; --bg-gray: #f6efe7; --accent-red: #e11d48; background: #f6efe7; height: auto; min-height: 100vh; overflow-y: auto; }
+        body.variant-cardflow header { background: #27211f; padding: 12px 26px; align-items: center; }
+        body.variant-cardflow .container { flex: 0 0 auto; min-height: calc(100vh - 100px); overflow: visible; flex-direction: column; gap: 14px; padding: 16px 20px 20px; }
+        body.variant-cardflow .resize-handle { display: none; }
+        body.variant-cardflow .right-section { order: -1; flex: 0 0 300px; width: 100%; border-radius: 24px; background: #fffaf3; border: 1px solid #ecd6bf; box-shadow: 0 14px 34px rgba(130, 76, 45, 0.14); overflow-x: auto; }
+        body.variant-cardflow .left-section { flex: 0 0 auto; width: 100%; min-height: 680px; overflow: visible; border-radius: 24px; box-shadow: 0 12px 28px rgba(130, 76, 45, 0.12); }
+        body.variant-cardflow .search-box { padding: 12px 18px 10px; background: #fffaf3; border-color: #efd6bc; flex: 0 0 auto; }
+        body.variant-cardflow .summary-bar { width: fit-content; min-height: 38px; margin: 8px 18px 0 auto; padding: 8px 14px; border-radius: 999px; background: #fff7ed; border: 1px solid #fed7aa; color: #9f1239; box-shadow: 0 8px 18px rgba(154, 52, 18, 0.12); }
+        body.variant-cardflow .tabs { background: #fff7ed; border-color: #fed7aa; flex: 0 0 auto; }
+        body.variant-cardflow .tab-btn { min-height: 44px; padding: 8px 10px; }
+        body.variant-cardflow .tab-content { flex: 0 0 auto; max-height: none; overflow: visible; }
+        body.variant-cardflow .tab-btn.active { color: #9f1239; border-bottom-color: #e11d48; }
+        body.variant-cardflow .course-card { border-radius: 20px; background: #fffaf3; border-color: #f4c38b; }
+        body.variant-cardflow .btn-reg { background: #e11d48; }
+        body.variant-cardflow .btn-cart { background: #27211f; }
+        body.variant-cardflow .course-time-line { color: #e11d48; }
+        body.variant-cardflow .timetable-title-card::before { content: '📅 '; }
+        body.variant-cardflow .timetable-title-card::after { content: ' · Timetable First'; color: #e11d48; margin-left: 6px; }
+        body.dark-mode.variant-credit .course-card,
+        body.dark-mode.variant-cardflow .course-card { background: #1b2533; color: #d7e1ef; border-color: #324355; }
+        body.dark-mode.variant-credit .course-card.selected-course,
+        body.dark-mode.variant-cardflow .course-card.selected-course { background: #23384f; border-color: #4d78a6; }
+        body.dark-mode.variant-credit .course-name,
+        body.dark-mode.variant-cardflow .course-name { color: #8fc6ff; }
+        body.dark-mode.variant-credit .course-primary-meta strong,
+        body.dark-mode.variant-credit .course-primary-meta span,
+        body.dark-mode.variant-credit .course-info,
+        body.dark-mode.variant-credit .course-enrollment-line,
+        body.dark-mode.variant-cardflow .course-primary-meta strong,
+        body.dark-mode.variant-cardflow .course-primary-meta span,
+        body.dark-mode.variant-cardflow .course-info,
+        body.dark-mode.variant-cardflow .course-enrollment-line { color: #c5d2e4; }
+        body.dark-mode.variant-cardflow .left-section,
+        body.dark-mode.variant-cardflow .right-section,
+        body.dark-mode.variant-cardflow .search-box,
+        body.dark-mode.variant-cardflow .summary-bar,
+        body.dark-mode.variant-cardflow .tabs,
+        body.dark-mode.variant-cardflow .tab-btn { background: #1e2835; color: #d7e1ef; border-color: #324355; }
+        body.dark-mode.variant-cardflow .tab-btn.active { background: #243142; color: #ffb4c4; border-bottom-color: #ff7a7a; }
+        body.dark-mode.variant-credit .status-open,
+        body.dark-mode.variant-cardflow .status-open { background: #1d4a36; color: #c2efd7; }
+        body.dark-mode.variant-credit .status-wait,
+        body.dark-mode.variant-cardflow .status-wait { background: #5a3b1f; color: #ffd7b5; }
+        body.dark-mode.variant-credit .status-full,
+        body.dark-mode.variant-cardflow .status-full { background: #542f35; color: #ffd0d0; }
+        body.dark-mode.variant-credit .status-registered,
+        body.dark-mode.variant-cardflow .status-registered { background: #18435c; color: #bde7ff; }
 
         @media (max-width: 1220px) {
             .course-card-topline,
@@ -326,7 +452,7 @@
         }
     </style>
 </head>
-<body>
+<body class="variant-night">
 
 <header>
     <div class="header-main">
@@ -339,7 +465,6 @@
         </div>
     </div>
     <div class="header-actions">
-        <button id="mobile-view-toggle-btn" class="mobile-toggle-btn" type="button">PC버전</button>
         <button id="theme-toggle-btn" class="theme-toggle-btn" type="button">다크모드</button>
     </div>
 </header>
@@ -349,12 +474,18 @@
         <div class="search-box">
             <div class="search-row">
                 <div class="search-input-wrap">
-                    <span class="search-icon" aria-hidden="true">🔍</span>
                     <input type="text" id="searchInput" placeholder="강좌명 / 교수명 / 학과명 / 이수구분 / 강의코드 검색">
                 </div>
                 <button type="button" id="clearSearchBtn" class="search-clear-btn">초기화</button>
             </div>
             <div class="search-helper">코드까지 함께 찾을 수 있게 개선했습니다. ISU/Course는 전공·교양 같은 이수구분을 뜻하며, 카드에 마우스를 올리면 시간표 충돌도 바로 확인할 수 있습니다.</div>
+            <div class="search-filter-chips" aria-label="검색 범위 선택">
+                <button type="button" class="search-scope-chip active" data-scope="all">전체</button>
+                <button type="button" class="search-scope-chip" data-scope="name">강좌명</button>
+                <button type="button" class="search-scope-chip" data-scope="dept">학과</button>
+                <button type="button" class="search-scope-chip" data-scope="prof">교수</button>
+                <button type="button" class="search-scope-chip" data-scope="num">코드</button>
+            </div>
             <div class="search-meta">
                 <span id="search-count" class="search-count">전체 0개 강좌</span>
                 <span id="search-keyword"></span>
@@ -362,11 +493,10 @@
         </div>
 
         <div class="summary-bar" id="credit-summary">
-            신청 학점: <span id="display-total">0</span>
-            (<span id="display-reg">0</span> + <span id="display-wait" class="wait-val">0</span>) / 18
+            <div>신청 학점: <span id="display-total">0</span>
+            (<span id="display-reg">0</span> + <span id="display-wait" class="wait-val">0</span>) / 18</div>
+            <div id="credit-ring" class="credit-ring" data-label="0/18"></div>
         </div>
-
-        <button id="mobile-timetable-toggle" class="mobile-timetable-toggle" type="button">시간표 보기</button>
 
         <div class="tabs">
             <button type="button" class="tab-btn active" onclick="openTab('course-list', this)">강좌 리스트</button>
@@ -400,7 +530,6 @@
     <div id="resize-handle" class="resize-handle" aria-label="섹션 너비 조절 핸들" role="separator" aria-orientation="vertical" aria-valuemin="360" aria-valuemax="1200" aria-valuenow="520"></div>
 
     <div class="right-section">
-        <button id="mobile-timetable-back" class="mobile-timetable-back" type="button">강좌 리스트로 돌아가기</button>
         <div class="timetable-topbar">
             <div id="timetable-title" class="timetable-title-card">나의 수강 시간표</div>
             <div class="timetable-legend">
@@ -417,8 +546,8 @@
     </div>
 </div>
 
-<div id="commonModal" class="modal">
-    <div class="modal-content">
+<div id="commonModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-content" tabindex="-1">
         <div id="modalTitle" class="modal-header">알림</div>
         <div id="modalContent" style="font-size:0.9em; line-height:1.6;"></div>
         <div id="modalFooter" class="modal-footer"></div>
@@ -429,9 +558,15 @@
     let myRegistrations = [];
     let myCart = [];
     const MAX_CREDITS = 18;
+    let searchScope = 'all';
+    let modalPrimaryAction = null;
+    let modalCancelAction = null;
+    let timetableRefreshFrame = null;
+    let activePreviewCourse = null;
+    let previewClearTimer = null;
     const USER_NAME = '김한림';
     const USER_ID = '20231234';
-    const USER_MAJOR = ' 콘텐츠IT';
+    const USER_MAJOR = '\u00a0콘텐츠IT';
     window.USER_MAJOR = USER_MAJOR;
 
     // 이미지 기반 졸업 자가진단 데이터
@@ -451,7 +586,11 @@
     };
 
     function renderUserInfo() {
-        $('#user-meta').html(`${USER_NAME} | ${USER_ID} | <span class="user-major">${escapeHtml(USER_MAJOR)} <a class="roadmap-btn" href="software_contentit.pdf" target="_blank" rel="noopener">전공 로드맵</a></span>`);
+        if ($('body').hasClass('variant-credit')) {
+            $('#user-meta').html(`<span class="meta-line">${USER_NAME}</span><span class="meta-line">${USER_ID}</span><span class="meta-line user-major-text">${escapeHtml(USER_MAJOR).replace(/&nbsp;| /g, '')}</span><span class="user-major"><a class="roadmap-btn" href="software_contentit.pdf" target="_blank" rel="noopener">전공 로드맵</a></span>`);
+            return;
+        }
+        $('#user-meta').html(`${USER_NAME} | ${USER_ID} |<span class="user-major">${escapeHtml(USER_MAJOR)} <a class="roadmap-btn" href="software_contentit.pdf" target="_blank" rel="noopener">전공 로드맵</a></span>`);
     }
 
     // 상단 서버 시간(현재는 로컬 PC 기준) 표시
@@ -535,13 +674,12 @@
         renderUserInfo();
         // 서버 시간(로컬) 초기화 및 1초마다 갱신
         updateServerTime();
-        setInterval(updateServerTime, 47);
+        setInterval(updateServerTime, 1000);
 
             initThemeToggle();
-            initMobileViewToggle();
-            initMobileTimetableToggle();
             renderGrid();
-            syncTimetableHeaderWidth();
+            initTimetableResizeObserver();
+            scheduleTimetableRefresh();
             refreshFilteredCourseList();
             renderCart();
             updateUI();
@@ -557,6 +695,14 @@
                 $('#searchInput').val('');
                 refreshFilteredCourseList();
                 filterRegisteredList('');
+                $('#searchInput').trigger('focus');
+            });
+
+            $('.search-scope-chip').on('click', function() {
+                searchScope = $(this).data('scope');
+                $('.search-scope-chip').removeClass('active');
+                $(this).addClass('active');
+                refreshFilteredCourseList();
                 $('#searchInput').trigger('focus');
             });
         });
@@ -575,6 +721,11 @@
             const dept = normalizeSearchText(course.dept);
             const category = normalizeSearchText(course.category);
             const time = normalizeSearchText(translateTime(course.time));
+
+            if (searchScope === 'name') return name.includes(val) ? 100 : 0;
+            if (searchScope === 'dept') return dept.includes(val) ? 100 : 0;
+            if (searchScope === 'prof') return prof.includes(val) ? 100 : 0;
+            if (searchScope === 'num') return num.includes(val) ? 100 : 0;
 
             if (name === val) return 100;
             if (num === val) return 95;
@@ -603,11 +754,13 @@
             const filtered = getFilteredCourses(keyword);
             renderCourseList(filtered);
             updateSearchMeta(filtered.length, window.courseData.length, keyword);
+            previewSingleSearchResult(filtered, keyword);
         }
 
         function updateSearchMeta(currentCount, totalCount, keyword) {
+            const scopeLabels = { all: '전체', name: '강좌명', dept: '학과', prof: '교수', num: '코드' };
             $('#search-count').text(`전체 ${totalCount}개 중 ${currentCount}개 표시`);
-            $('#search-keyword').html(keyword ? `<span class="search-keyword">검색어: ${escapeHtml(keyword)}</span>` : '');
+            $('#search-keyword').html(keyword ? `<span class="search-keyword">${scopeLabels[searchScope]}: ${escapeHtml(keyword)}</span>` : '');
         }
 
         function escapeHtml(text) {
@@ -645,52 +798,6 @@
             const current = $('body').hasClass('dark-mode') ? 'dark' : 'light';
             localStorage.setItem(themeKey, current);
             syncButtonText();
-        });
-    }
-
-    function initMobileViewToggle() {
-        const mobileKey = 'hci-mobile-view';
-        const $btn = $('#mobile-view-toggle-btn');
-
-        function syncButtonText() {
-            $btn.text($('body').hasClass('mobile-sim') ? 'PC버전' : '모바일버전');
-        }
-
-        if (localStorage.getItem(mobileKey) === 'on') {
-            $('body').addClass('mobile-sim');
-        }
-        syncButtonText();
-
-        $btn.on('click', function() {
-            $('body').toggleClass('mobile-sim');
-            // 데스크톱 모드로 돌아갈 때 시간표는 항상 숨김 상태로 초기화
-            if (!$('body').hasClass('mobile-sim')) {
-                $('body').removeClass('mobile-timetable-open');
-                $('#mobile-timetable-toggle').text('시간표 보기');
-            }
-            const current = $('body').hasClass('mobile-sim') ? 'on' : 'off';
-            localStorage.setItem(mobileKey, current);
-            syncButtonText();
-        });
-    }
-
-    function initMobileTimetableToggle() {
-        const $toggleBtn = $('#mobile-timetable-toggle');
-        const $backBtn = $('#mobile-timetable-back');
-
-        function updateState(isOpen) {
-            $('body').toggleClass('mobile-timetable-open', isOpen);
-            const label = isOpen ? '시간표 숨기기' : '시간표 보기';
-            $toggleBtn.text(label);
-        }
-
-        $toggleBtn.on('click', function() {
-            const isOpen = !$('body').hasClass('mobile-timetable-open');
-            updateState(isOpen);
-        });
-
-        $backBtn.on('click', function() {
-            updateState(false);
         });
     }
 
@@ -741,35 +848,65 @@
         $(document).on('mousemove', function(e) {
             if (!dragging) return;
             applyWidth(startLeft + (e.clientX - startX));
+            syncTimetableHeaderWidth();
+            updateTimetableDisplay();
         });
 
         $(document).on('mouseup', function() {
             if (!dragging) return;
             dragging = false;
             $('body').removeClass('is-resizing');
+            syncTimetableHeaderWidth();
+            updateTimetableDisplay();
         });
 
         $(window).on('resize', function() {
             if ($left.css('flex-grow') === '0') {
                 applyWidth($left.outerWidth());
             }
-            syncTimetableHeaderWidth();
+            scheduleTimetableRefresh();
         });
+    }
+
+    function scheduleTimetableRefresh() {
+        if (timetableRefreshFrame) cancelAnimationFrame(timetableRefreshFrame);
+        timetableRefreshFrame = requestAnimationFrame(function() {
+            timetableRefreshFrame = null;
+            syncTimetableHeaderWidth();
+            updateTimetableDisplay();
+        });
+    }
+
+    function initTimetableResizeObserver() {
+        if (!window.ResizeObserver) return;
+        const grid = document.getElementById('timetable');
+        const rightSection = document.querySelector('.right-section');
+        if (!grid) return;
+        const observer = new ResizeObserver(function() {
+            scheduleTimetableRefresh();
+        });
+        observer.observe(grid);
+        if (rightSection) observer.observe(rightSection);
     }
 
     function syncTimetableHeaderWidth() {
         const grid = document.getElementById('timetable');
-        if (!grid) return;
+        const header = document.querySelector('.grid-header');
+        if (!grid || !header) return;
+        const firstRowCells = Array.prototype.slice.call(grid.querySelectorAll('.cell'), 0, 7);
         const scrollbarWidth = Math.max(0, grid.offsetWidth - grid.clientWidth);
         const scrollbarWidthValue = `${scrollbarWidth}px`;
         $('.right-section').css('--timetable-scrollbar-width', scrollbarWidthValue);
-        $('.grid-header').css('padding-right', scrollbarWidthValue);
+        if (firstRowCells.length === 7) {
+            const measuredColumns = firstRowCells.map(cell => `${cell.getBoundingClientRect().width}px`).join(' ');
+            header.style.gridTemplateColumns = `${measuredColumns} ${scrollbarWidthValue}`;
+        }
     }
 
     function renderGrid() {
         const days = ['MON', 'TUE', 'WED', 'THU', 'FRI'];
         const grid = $('#timetable').empty();
-        for (let i = 0; i < 22; i++) {
+        for (let i = 2; i < 22; i++) {
             // 숫자 교시 라벨
             let period = (i >= 2 && i % 2 === 0) ? Math.floor(i/2) : 0;
             let numVal = period > 0 ? String(period) : "";
@@ -791,6 +928,7 @@
                 grid.append(`<div class="cell day-cell ${cellBorder}" id="cell-${day}-${i}"></div>`);
             });
         }
+        grid.append('<div id="course-block-layer" class="course-block-layer"></div>');
     }
 
     function renderCourseList(list) {
@@ -837,52 +975,112 @@
     }
 
     function setupHoverEffects(selector) {
-        $(selector).off('mouseenter mouseleave').on('mouseenter', function() {
-            const courseId = parseInt($(this).attr('data-id'));
-            const course = window.courseData.find(c => c.id === courseId);
-            if (!course) return;
+        const $root = $(selector).first().parent();
+        $root.off('mouseenter.coursePreview mousemove.coursePreview focusin.coursePreview mouseleave.coursePreview', '.course-card')
+            .on('mouseenter.coursePreview mousemove.coursePreview focusin.coursePreview', '.course-card', function() {
+                const courseId = parseInt($(this).attr('data-id'), 10);
+                const course = window.courseData.find(c => c.id === courseId);
+                previewCourseOnTimetable(course);
+            })
+            .on('mouseleave.coursePreview', '.course-card', function() {
+                scheduleCoursePreviewClear();
+            });
+    }
 
-            updateTimetableDisplay();
-            hideOverlapWarning();
+    function previewSingleSearchResult(filtered, keyword) {
+        if (normalizeSearchText(keyword) && filtered.length === 1) {
+            previewCourseOnTimetable(filtered[0]);
+            return;
+        }
+        clearCoursePreview();
+    }
 
-            const isAlreadyRegistered = myRegistrations.some(r => r.id === courseId);
-            const conflicts = isAlreadyRegistered ? [] : getCourseConflicts(course);
+    function scheduleCoursePreviewClear() {
+        if (previewClearTimer) clearTimeout(previewClearTimer);
+        previewClearTimer = setTimeout(function() {
+            previewClearTimer = null;
+            clearCoursePreview();
+        }, 1600);
+    }
 
-            if (isAlreadyRegistered) {
-                renderCoursePreview(course, 'highlight-registered-focus', course.name);
-                return;
-            }
+    function clearCoursePreview() {
+        if (previewClearTimer) {
+            clearTimeout(previewClearTimer);
+            previewClearTimer = null;
+        }
+        activePreviewCourse = null;
+        hideOverlapWarning();
+        updateTimetableTextOnly();
+    }
 
-            if (conflicts.length) {
-                renderCoursePreview(course, 'highlight-overlap', '시간 중복');
-                showOverlapWarning(course, conflicts);
-            } else {
-                renderCoursePreview(course, 'highlight-target', '');
-            }
-        }).on('mouseleave', function() {
-            hideOverlapWarning();
-            updateTimetableTextOnly();
-        });
+    function previewCourseOnTimetable(course) {
+        if (!course) return;
+        if (previewClearTimer) {
+            clearTimeout(previewClearTimer);
+            previewClearTimer = null;
+        }
+        activePreviewCourse = course;
+        updateTimetableDisplay();
+    }
+
+    function renderActiveCoursePreview() {
+        const course = activePreviewCourse;
+        if (!course) return;
+
+        const isAlreadyRegistered = myRegistrations.some(r => r.id === course.id);
+        const conflicts = isAlreadyRegistered ? [] : getCourseConflicts(course);
+
+        if (isAlreadyRegistered) {
+            renderCoursePreview(course, 'registered-focus', course.name);
+            return;
+        }
+
+        if (conflicts.length) {
+            renderCoursePreview(course, 'overlap', '시간 중복');
+            showOverlapWarning(course, conflicts);
+        } else {
+            renderCoursePreview(course, 'target', '');
+        }
     }
 
     function renderCoursePreview(course, stateClass, fallbackLabel) {
         const slotsByDay = getSlotsByDay(course.slots);
         Object.keys(slotsByDay).forEach(day => {
             const info = slotsByDay[day];
-            const middleIndex = Math.floor((info.indices.length - 1) / 2);
-            const labelClass = getCourseLabelClass(course.name, info.indices.length);
-            info.indices.forEach((p, idx) => {
-                const $cell = $(`#cell-${p}`);
-                $cell.addClass(stateClass);
-                if (idx === 0) $cell.addClass('course-span-start');
-                else if (idx === info.indices.length - 1) $cell.addClass('course-span-end');
-                else $cell.addClass('course-span-middle');
-
-                if (idx === middleIndex && stateClass === 'highlight-overlap') {
-                    $cell.addClass(`course-cell-primary ${labelClass}`).html(`<span class="course-cell-name ${getCourseLineClass(course.name, info.indices.length)}">${fallbackLabel}</span><span class="course-cell-time">${info.label}</span>`);
-                }
-            });
+            if (stateClass === 'target') {
+                appendCourseOverlay(course, info, 'target', '');
+            } else if (stateClass === 'registered-focus') {
+                appendCourseOverlay(course, info, 'focus', fallbackLabel);
+            } else if (stateClass === 'overlap') {
+                appendCourseOverlay(course, info, 'overlap', fallbackLabel);
+            }
         });
+    }
+
+    function appendCourseOverlay(course, info, state, labelText) {
+        const $layer = $('#course-block-layer');
+        if (!$layer.length || !info.indices.length) return;
+        const firstCell = document.getElementById(`cell-${info.indices[0]}`);
+        const lastCell = document.getElementById(`cell-${info.indices[info.indices.length - 1]}`);
+        if (!firstCell || !lastCell) return;
+        const labelClass = getCourseLabelClass(course.name, info.indices.length);
+        const lineClass = getCourseLineClass(course.name, info.indices.length);
+        const stateClass = state === 'waiting' ? 'course-overlay-waiting'
+            : state === 'overlap' ? 'course-overlay-overlap'
+            : state === 'focus' ? 'course-overlay-focus'
+            : 'course-overlay-registered';
+        const top = firstCell.offsetTop;
+        const left = firstCell.offsetLeft;
+        const width = firstCell.offsetWidth;
+        const height = lastCell.offsetTop + lastCell.offsetHeight - firstCell.offsetTop;
+        const safeLabel = escapeHtml(labelText || course.name);
+        const safeTime = escapeHtml(info.label);
+        $layer.append(`
+            <div class="course-overlay-block ${stateClass} ${labelClass}" style="top:${top + 2}px; left:${left + 2}px; width:${Math.max(0, width - 4)}px; height:${Math.max(0, height - 4)}px;">
+                <span class="course-cell-name ${lineClass}">${safeLabel}</span>
+                <span class="course-cell-time">${safeTime}</span>
+            </div>
+        `);
     }
 
     function getCourseConflicts(course) {
@@ -985,6 +1183,10 @@
     window.addToCart = function(id) {
         const course = window.courseData.find(c => c.id === id);
         if (!course) return;
+        if (myRegistrations.some(r => r.id === id)) {
+            showModal('알림', `[${course.name}] 이미 신청된 강좌는 장바구니에 다시 담을 수 없습니다.`, 'alert');
+            return;
+        }
         if (myCart.includes(id)) {
             showModal('알림', `[${course.name}] 이미 장바구니에 담겨 있습니다.`, 'alert');
             return;
@@ -1078,6 +1280,8 @@
 
         const conflicts = getCourseConflicts(course);
         if (conflicts.length) {
+            activePreviewCourse = course;
+            updateTimetableDisplay();
             showModal("수강신청 불가", buildOverlapMessage(course, conflicts), 'alert');
             showOverlapWarning(course, conflicts);
             return;
@@ -1089,6 +1293,7 @@
 
         // 일괄신청 등에서, 정원 여유가 있는 과목은 확인 모달 없이 바로 신청 처리
         if (skipConfirmIfNotFull) {
+            course.enr += 1;
             myRegistrations.push({ id: id, status: 'registered' });
             myCart = myCart.filter(cid => cid !== id);
 
@@ -1096,7 +1301,8 @@
                 updateUI();
                 if (onDone) onDone();
             } else {
-                showModal("신청 완료", "정상적으로 처리되었습니다.", 'refresh', function() {
+                updateUI();
+                showModal("신청 완료", "정상적으로 처리되었습니다.", 'alert', function() {
                     if (onDone) onDone();
                 });
             }
@@ -1110,6 +1316,7 @@
                 course.wait += 1;
                 myRegistrations.push({ id: id, status: 'waiting', waitNo: course.wait });
             } else {
+                course.enr += 1;
                 myRegistrations.push({ id: id, status: 'registered' });
             }
             // 신청 성공 시 해당 강좌는 장바구니에서 제거
@@ -1118,7 +1325,8 @@
                 updateUI();
                 if (onDone) onDone();
             } else {
-                showModal("신청 완료", "정상적으로 처리되었습니다.", 'refresh', function() {
+                updateUI();
+                showModal("신청 완료", "정상적으로 처리되었습니다.", 'alert', function() {
                     if (onDone) onDone();
                 });
             }
@@ -1128,12 +1336,15 @@
     window.cancelCourse = function(id) {
         const reg = myRegistrations.find(r => r.id === id);
         showModal("취소 확인", "선택하신 강좌를 취소하시겠습니까?", 'confirm', function() {
+            const c = window.courseData.find(item => item.id === id);
             if (reg.status === 'waiting') {
-                const c = window.courseData.find(item => item.id === id);
                 if(c.wait > 0) c.wait -= 1;
+            } else if (c && c.enr > 0) {
+                c.enr -= 1;
             }
             myRegistrations = myRegistrations.filter(r => r.id !== id);
-            showModal("취소 완료", "정상적으로 취소되었습니다.", 'refresh');
+            updateUI();
+            showModal("취소 완료", "정상적으로 취소되었습니다.", 'alert');
         });
     };
 
@@ -1164,7 +1375,7 @@
                     <td>${d.get}</td>
                     <td class="val-reg">${curTaking}</td>
                     <td class="val-remain">${(key.includes("복수전공") && key !== "복수전공1") ? "" : remain}</td>
-                    <td><button class="btn-lookup" onclick="showModal('${key} 세부기준','본 항목은 ${key} 영역의 세부기준 임시 데이터입니다.','info')">조회</button></td>
+                    <td><button type="button" class="btn-lookup" onclick="showDiagnosisDetail('${key}')">조회</button></td>
                 </tr>
             `);
         });
@@ -1181,9 +1392,17 @@
             const c = window.courseData.find(cd => cd.id === r.id);
             if(r.status === 'registered') regSum += c.credit; else waitSum += c.credit;
         });
-        $('#display-total').text(regSum + waitSum);
+        const totalCredits = regSum + waitSum;
+        $('#display-total').text(totalCredits);
         $('#display-reg').text(regSum);
         $('#display-wait').text(waitSum);
+        const creditPercent = `${Math.min(100, (totalCredits / MAX_CREDITS) * 100)}%`;
+        const creditRing = document.getElementById('credit-ring');
+        if (creditRing) {
+            creditRing.style.setProperty('--credit-percent', creditPercent);
+            creditRing.style.setProperty('--credit-fill', creditPercent);
+            creditRing.setAttribute('data-label', `${totalCredits}/${MAX_CREDITS}`);
+        }
 
         const container = $('#registered-container').empty();
         if (myRegistrations.length === 0) $('#empty-msg').show();
@@ -1206,27 +1425,16 @@
 
     function updateTimetableDisplay() {
         $('.day-cell').removeClass('fixed-course fixed-waiting course-cell-primary large-label compact-label xcompact-label course-span-start course-span-middle course-span-end highlight-target highlight-overlap highlight-registered-focus').empty();
+        $('#course-block-layer').empty();
         hideOverlapWarning();
         myRegistrations.forEach(reg => {
             const c = window.courseData.find(item => item.id === reg.id);
             const slotsByDay = getSlotsByDay(c.slots);
             Object.keys(slotsByDay).forEach(day => {
-                const info = slotsByDay[day];
-                const middleIndex = Math.floor((info.indices.length - 1) / 2);
-                const labelClass = getCourseLabelClass(c.name, info.indices.length);
-                info.indices.forEach((p, idx) => {
-                    const $cell = $(`#cell-${p}`);
-                    $cell.addClass(reg.status === 'waiting' ? 'fixed-waiting' : 'fixed-course');
-                    if (idx === 0) $cell.addClass('course-span-start');
-                    else if (idx === info.indices.length - 1) $cell.addClass('course-span-end');
-                    else $cell.addClass('course-span-middle');
-
-                    if (idx === middleIndex) {
-                        $cell.addClass(`course-cell-primary ${labelClass}`).html(`<span class="course-cell-name ${getCourseLineClass(c.name, info.indices.length)}">${c.name}</span><span class="course-cell-time">${info.label}</span>`);
-                    }
-                });
+                appendCourseOverlay(c, slotsByDay[day], reg.status === 'waiting' ? 'waiting' : 'registered', c.name);
             });
         });
+        renderActiveCoursePreview();
     }
 
     function getCourseLabelClass(name, spanCount) {
@@ -1320,20 +1528,61 @@
     function showModal(title, content, type, onConfirm) {
         $('#modalTitle').text(title); $('#modalContent').html(content);
         const footer = $('#modalFooter').empty();
+        modalPrimaryAction = null;
+        modalCancelAction = null;
 
         if (type === 'confirm') {
-            footer.append($('<button class="btn-modal-cancel">취소</button>').click(closeModal));
-            footer.append($('<button class="btn-modal-confirm">확인</button>').click(() => { closeModal(); if(onConfirm) onConfirm(); }));
+            modalCancelAction = closeModal;
+            modalPrimaryAction = function() { closeModal(); if(onConfirm) onConfirm(); };
+            footer.append($('<button type="button" class="btn-modal-cancel">취소</button>').click(modalCancelAction));
+            footer.append($('<button type="button" class="btn-modal-confirm">확인</button>').click(modalPrimaryAction));
         } else if (type === 'refresh') {
-            footer.append($('<button class="btn-modal-confirm">확인</button>').click(() => { closeModal(); updateUI(); if(onConfirm) onConfirm(); }));
+            modalPrimaryAction = function() { closeModal(); updateUI(); if(onConfirm) onConfirm(); };
+            modalCancelAction = modalPrimaryAction;
+            footer.append($('<button type="button" class="btn-modal-confirm">확인</button>').click(modalPrimaryAction));
         } else {
-            footer.append($('<button class="btn-modal-close">닫기</button>').click(() => { closeModal(); if(onConfirm) onConfirm(); }));
+            modalPrimaryAction = function() { closeModal(); if(onConfirm) onConfirm(); };
+            modalCancelAction = modalPrimaryAction;
+            footer.append($('<button type="button" class="btn-modal-close">닫기</button>').click(modalPrimaryAction));
         }
         $('#commonModal').css('display', 'flex');
+        $(document).off('keydown.modal').on('keydown.modal', function(e) {
+            if ($('#commonModal').css('display') !== 'flex') return;
+            if (e.key === 'Enter' && modalPrimaryAction) { e.preventDefault(); modalPrimaryAction(); }
+            if (e.key === 'Escape' && modalCancelAction) { e.preventDefault(); modalCancelAction(); }
+        });
+        $('#modalFooter button:last').trigger('focus');
     }
 
-    function closeModal() { $('#commonModal').hide(); }
-    window.showSyllabus = (id) => showModal("강의계획서", "본 강의는 전공 역량 강화를 위한 수업입니다.<br>출석 20%, 중간 30%, 기말 40%, 과제 10%", 'info');
+    function closeModal() {
+        $('#commonModal').hide();
+        $(document).off('keydown.modal');
+        modalPrimaryAction = null;
+        modalCancelAction = null;
+    }
+    window.showDiagnosisDetail = function(key) {
+        const d = gradBase[key];
+        if (!d) return;
+        const taking = {};
+        Object.keys(gradBase).forEach(k => { taking[k] = 0; });
+        let totalSum = 0;
+        myRegistrations.forEach(r => {
+            const c = window.courseData.find(cd => cd.id === r.id);
+            if (!c) return;
+            totalSum += c.credit;
+            const area = c.category === "전공" ? "주전공" : c.category;
+            if (taking.hasOwnProperty(area)) taking[area] += c.credit;
+        });
+        const currentTaking = key === "총학점" ? totalSum : taking[key];
+        const remain = Math.max(0, d.base - d.get - currentTaking);
+        showModal(`${key} 세부기준`, `기준 ${d.base || 0}학점 / 취득 ${d.get}학점 / 이번 수강 ${currentTaking}학점 / 잔여 ${remain}학점<br>현재 신청 내역을 반영한 자가진단 값입니다.`, 'info');
+    };
+
+    window.showSyllabus = (id) => {
+        const c = window.courseData.find(course => course.id === id);
+        if (!c) return;
+        showModal("강의계획서", `<strong>${c.name}</strong><br>담당교수: ${c.prof}<br>이수구분: ${c.category}<br>학점/시간: ${c.credit}학점 · ${translateTime(c.time)}<br><br>평가: 출석 20%, 중간 30%, 기말 40%, 과제 10%<br>수업 목적: ${c.dept} 분야의 핵심 개념과 실습 역량을 강화합니다.`, 'info');
+    };
     window.showDetails = (id) => {
         const c = window.courseData.find(x=>x.id===id);
         const remain = Math.max(0, c.cap - c.enr);

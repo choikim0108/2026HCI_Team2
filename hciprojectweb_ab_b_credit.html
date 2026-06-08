@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>한림대 수강신청 Prototype A - 5월25일 기준안</title>
+    <title>한림대 수강신청 Prototype B1 - 원형 학점 그래프</title>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="courses.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
@@ -66,12 +66,10 @@
         .search-clear-btn { flex: 0 0 auto; min-width: 76px; min-height: 48px; padding: 11px 12px; border: 1px solid #d5dee8; border-radius: 10px; background: #f8fbfe; color: var(--hallym-blue); font-weight: 700; cursor: pointer; }
         .search-clear-btn:hover { background: #edf5fc; }
         .search-helper { margin-top: 10px; font-size: 0.8em; color: #607286; line-height: 1.5; }
-        .search-filter-label { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 12px; color: #1f4263; font-size: 0.82em; font-weight: 900; }
-        .search-filter-label span { color: #5b7086; font-size: 0.92em; font-weight: 700; }
         .search-filter-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
-        .search-scope-chip { border: 1px solid #b9cde1; border-radius: 999px; background: #f4f9ff; color: #294d6e; padding: 6px 11px; font-size: 0.77em; font-weight: 900; cursor: pointer; transition: 0.2s; }
+        .search-scope-chip { border: 1px solid #d5dee8; border-radius: 999px; background: #f8fbfe; color: #526b83; padding: 5px 10px; font-size: 0.76em; font-weight: 800; cursor: pointer; transition: 0.2s; }
         .search-scope-chip:hover { background: #edf5fc; border-color: #a9c7e4; }
-        .search-scope-chip.active { background: var(--hallym-blue); border-color: var(--hallym-blue); color: #fff; box-shadow: 0 0 0 3px rgba(0, 48, 93, 0.16); }
+        .search-scope-chip.active { background: var(--hallym-blue); border-color: var(--hallym-blue); color: #fff; }
         .search-meta { margin-top: 10px; display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: 0.78em; color: #6c7d90; }
         .search-count { font-weight: 700; color: var(--hallym-blue); }
         .search-keyword { padding: 3px 8px; border-radius: 999px; background: #eef5ff; color: #285f92; font-weight: 700; }
@@ -234,10 +232,10 @@
         .btn-modal-close { padding: 8px 20px; background: #607d8b; color: white; border: none; border-radius: 4px; cursor: pointer; }
 
         /* Dark Mode */
-        body.dark-mode { --bg-gray: #141a22; --hallym-blue: #0c223d; --timetable-border: #324355; --course-yellow: #7d6a17; --overlap-pastel-red: #5a2d34; --overlap-red-soft: #5a2d34; --overlap-red: #ff7a7a; --overlap-red-deep: #ffd0d0; --highlight-blue: #4cc9f0; --accent-red: #ff7a7a; --wait-orange: #c4b5fd; }
+        body.dark-mode { --bg-gray: #141a22; --hallym-blue: #0c223d; --timetable-border: #324355; --course-yellow: #7d6a17; --overlap-pastel-red: #5a2d34; --overlap-red-soft: #5a2d34; --overlap-red: #ff7a7a; --overlap-red-deep: #ffd0d0; --highlight-blue: #4cc9f0; --accent-red: #ff7a7a; --wait-orange: #ffae42; }
         body.dark-mode header { background: #0b1729; border-bottom: 1px solid #233248; }
-        body.dark-mode .theme-toggle-btn { background: #243955; color: #f4f8ff; border-color: #58718f; }
-        body.dark-mode .roadmap-btn { background: #243955; color: #f4f8ff; border-color: #58718f; }
+        body.dark-mode .theme-toggle-btn { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); }
+        body.dark-mode .roadmap-btn { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); }
         body.dark-mode .left-section,
         body.dark-mode .right-section,
         body.dark-mode .modal-content { background: #1e2835; color: #d7e1ef; box-shadow: 0 8px 24px rgba(0,0,0,0.35); }
@@ -256,8 +254,6 @@
         body.dark-mode .timetable-alert strong { color: #fff1f3; }
         body.dark-mode .search-helper,
         body.dark-mode .search-meta { color: #9fb0c6; }
-        body.dark-mode .search-filter-label { color: #eef6ff; }
-        body.dark-mode .search-filter-label span { color: #b9cce2; }
         body.dark-mode .search-keyword,
         body.dark-mode .course-code { background: #24374a; color: #cfe0f1; }
         body.dark-mode .course-card,
@@ -283,7 +279,7 @@
         body.dark-mode .summary-bar { color: #d7e1ef; }
         body.dark-mode .course-time-line { color: #8fc6ff; }
         body.dark-mode .full-people { color: #ff9f9f !important; }
-        body.dark-mode .wait-people { color: #c4b5fd !important; }
+        body.dark-mode .wait-people { color: #ffc978 !important; }
         body.dark-mode .diag-table tbody tr:nth-child(even) { background: #202b38; }
         body.dark-mode .diag-table tbody tr:hover { background: #263443; }
         body.dark-mode .btn-cart-small { background: #243142; border-color: #3b4a61; }
@@ -291,18 +287,18 @@
         body.dark-mode .fixed-course.course-span-start { border-bottom-color: #1c4760 !important; }
         body.dark-mode .fixed-course.course-span-middle { border-top-color: #1c4760 !important; border-bottom-color: #1c4760 !important; }
         body.dark-mode .fixed-course.course-span-end { border-top-color: #1c4760 !important; }
-        body.dark-mode .fixed-waiting { background-color: #3b2d5f !important; border-color: #a78bfa !important; color: #f4f0ff !important; }
-        body.dark-mode .fixed-waiting.course-span-start { border-bottom-color: #3b2d5f !important; }
-        body.dark-mode .fixed-waiting.course-span-middle { border-top-color: #3b2d5f !important; border-bottom-color: #3b2d5f !important; }
-        body.dark-mode .fixed-waiting.course-span-end { border-top-color: #3b2d5f !important; }
+        body.dark-mode .fixed-waiting { background-color: #374454 !important; border-color: #7b8a9c !important; color: #eef3f9 !important; }
+        body.dark-mode .fixed-waiting.course-span-start { border-bottom-color: #374454 !important; }
+        body.dark-mode .fixed-waiting.course-span-middle { border-top-color: #374454 !important; border-bottom-color: #374454 !important; }
+        body.dark-mode .fixed-waiting.course-span-end { border-top-color: #374454 !important; }
         body.dark-mode .credit-ring::before { background: #1e2835; color: #dbe7f5; }
         body.dark-mode .course-overlay-registered { background: #1c4760; border-color: #5cb6ff; color: #edf8ff; }
-        body.dark-mode .course-overlay-waiting { background: #3b2d5f; border-color: #a78bfa; color: #f4f0ff; }
+        body.dark-mode .course-overlay-waiting { background: #374454; border-color: #7b8a9c; color: #eef3f9; }
         body.dark-mode .course-overlay-overlap { background: #5a2d34; border-color: #ff7a7a; color: #ffd0d0; }
         body.dark-mode .course-overlay-focus { background: #173f55; border-color: #4cc9f0; color: #e9fbff; }
-        body.dark-mode .status-open { background: #1d4a36; color: #c2efd7; border: 1px solid #34d399; }
-        body.dark-mode .status-wait { background: #3b2d5f; color: #ede9fe; border: 1px solid #8b5cf6; }
-        body.dark-mode .status-full { background: #542f35; color: #ffd0d0; border: 1px solid #fb7185; }
+        body.dark-mode .status-open { background: #1d4a36; color: #c2efd7; }
+        body.dark-mode .status-wait { background: #5a3b1f; color: #ffd7b5; }
+        body.dark-mode .status-full { background: #542f35; color: #ffd0d0; }
         body.dark-mode .status-registered { background: #18435c; color: #bde7ff; }
         body.dark-mode .course-name,
         body.dark-mode .tab-btn.active,
@@ -314,15 +310,29 @@
         body.dark-mode .cell { border-color: #324355; }
         body.dark-mode .course-info,
         body.dark-mode #empty-msg { color: #9fb0c6 !important; }
-        body.dark-mode .tab-btn.active { background: #17212e !important; color: #dbe7f5 !important; border-bottom-color: #82b9ec !important; }
-        body.dark-mode .btn-syllabus { background: #405968; color: #ffffff; }
-        body.dark-mode .btn-reg:not(.btn-reg-waiting):not(.btn-reg-registered) { background: #0b63ce; color: #ffffff; }
-        body.dark-mode .btn-reg-waiting { background: #6d28d9; color: #ffffff; }
-        body.dark-mode .btn-cart { background: #374151; color: #f8fafc; border: 1px solid #64748b; }
-        body.dark-mode .empty-state { background: #202b38 !important; color: #dce8f6 !important; border-color: #445a73 !important; }
-        body.dark-mode .search-scope-chip { background: #17212e; color: #dce8f6; border-color: #4a5f78; }
-        body.dark-mode .search-scope-chip:hover { background: #213047; border-color: #6f8aaa; }
-        body.dark-mode .search-scope-chip.active { background: #1f5f9f; color: #ffffff; border-color: #82b9ec; box-shadow: 0 0 0 3px rgba(130, 185, 236, 0.18); }
+        body.dark-mode .empty-state { background: #202b38 !important; color: #c5d2e4 !important; border-color: #3b4a61 !important; }
+        body.dark-mode .btn-modal-cancel { background: #243142; color: #dbe7f5; border: 1px solid #3b4a61; }
+        body.dark-mode .btn-lookup { background: #243142; color: #dbe7f5; border-color: #3b4a61; }
+        body.dark-mode .val-reg { color: #9ed0ff; }
+        body.dark-mode .val-remain { color: #ffd0d0; }
+        body.dark-mode .search-scope-chip { background: #17212e; color: #d7e1ef; border-color: #3a4b61; }
+        body.dark-mode .search-scope-chip.active { background: #2f6fb0; color: #ffffff; border-color: #5c9ed8; }
+        body.dark-mode.variant-credit,
+        body.dark-mode.variant-night,
+        body.dark-mode.variant-cardflow { background: #141a22; color: #d7e1ef; }
+        body.dark-mode.variant-credit .left-section,
+        body.dark-mode.variant-credit .search-box,
+        body.dark-mode.variant-credit .tabs,
+        body.dark-mode.variant-credit .summary-bar,
+        body.dark-mode.variant-credit .tab-btn { background: #1e2835; color: #d7e1ef; border-color: #324355; }
+        body.dark-mode.variant-night .left-section,
+        body.dark-mode.variant-night .right-section,
+        body.dark-mode.variant-night .search-box,
+        body.dark-mode.variant-night .summary-bar,
+        body.dark-mode.variant-night .tabs,
+        body.dark-mode.variant-night .tab-btn,
+        body.dark-mode.variant-night .course-card { background: #1e2835; color: #d7e1ef; border-color: #324355; }
+        body.dark-mode.variant-night .tab-btn.active { background: #243142; color: #9ed0ff; border-bottom-color: #5c9ed8; }
 
         body.variant-credit { --hallym-blue: #071827; --hallym-blue-bright: #059669; --bg-gray: #e8edf2; background: #e8edf2; flex-direction: row; }
         body.variant-credit header { flex: 0 0 238px; width: 238px; height: 100vh; flex-direction: column; justify-content: flex-start; align-items: stretch; padding: 26px 22px; background: linear-gradient(180deg, #071827 0%, #0d2438 100%); border-right: 1px solid rgba(255,255,255,0.12); }
@@ -353,6 +363,20 @@
         body.variant-credit .course-card { border-left: 5px solid #10b981; background: #ffffff; color: #22384d; border-radius: 18px; }
         body.variant-credit .right-section { flex: 1 1 auto; border-radius: 22px; overflow-x: auto; }
         body.variant-credit .timetable-title-card::after { content: ' · Sidebar Dashboard'; color: #059669; margin-left: 6px; }
+        body.variant-credit #search-count { color: #e8f3ff !important; }
+        body.variant-credit .course-card .course-info,
+        body.variant-credit .course-card .course-enrollment-line { color: #334155 !important; }
+        body.variant-credit .course-card .course-primary-meta span { color: #475867 !important; }
+        body.variant-credit .course-card .course-primary-meta strong { color: #1f2f3d !important; }
+        body.variant-credit .diag-table td,
+        body.variant-credit .diag-table .category-col { color: #22384d !important; background: #f8f9fa; }
+        body.variant-credit .diag-table tbody tr:nth-child(even) td { background: #eef5ff; }
+        body.variant-credit .diag-table tbody tr:hover td { background: #e3f2fd; }
+        body.variant-credit .val-reg,
+        body.variant-credit .diag-table td.val-reg { color: #1976d2 !important; }
+        body.variant-credit .val-remain,
+        body.variant-credit .diag-table td.val-remain { color: #d32f2f !important; }
+        body.variant-credit #diagnosis > div { border-left-color: #10b981 !important; }
         body.variant-night { --hallym-blue: #1d4ed8; --hallym-blue-bright: #2563eb; --bg-gray: #eef2f6; --text-main: #111827; background: #eef2f6; font-family: 'Noto Sans KR', sans-serif; }
         body.variant-night header { padding: 10px 22px; align-items: center; background: #0f172a; border-bottom: 1px solid #1e293b; }
         body.variant-night .header-main { flex: 1; flex-direction: row; align-items: center; gap: 18px; }
@@ -421,6 +445,40 @@
         body.dark-mode.variant-cardflow .status-full { background: #542f35; color: #ffd0d0; }
         body.dark-mode.variant-credit .status-registered,
         body.dark-mode.variant-cardflow .status-registered { background: #18435c; color: #bde7ff; }
+        body.dark-mode.variant-credit .right-section,
+        body.dark-mode.variant-credit .grid-container,
+        body.dark-mode.variant-credit .grid-header,
+        body.dark-mode.variant-credit .label-cell,
+        body.dark-mode.variant-credit .cell { background: #17212e !important; color: #e6eef8 !important; border-color: #3d5066 !important; }
+        body.dark-mode.variant-credit .grid-header,
+        body.dark-mode.variant-credit .label-cell,
+        body.dark-mode.variant-credit .timetable-title-card,
+        body.dark-mode.variant-credit .timetable-legend { background: #223045 !important; color: #f1f6ff !important; border-color: #425773 !important; }
+        body.dark-mode.variant-credit .label-main,
+        body.dark-mode.variant-credit .label-sub,
+        body.dark-mode.variant-credit .legend-pill,
+        body.dark-mode.variant-credit .grid-header div { color: #f1f6ff !important; }
+        body.dark-mode.variant-credit .summary-bar,
+        body.dark-mode.variant-credit #credit-summary { background: #223045 !important; color: #f5f9ff !important; border-color: #46607c !important; }
+        body.dark-mode.variant-credit .search-meta,
+        body.dark-mode.variant-credit #search-count { color: #f5f9ff !important; }
+        body.dark-mode.variant-credit .search-helper { color: #d9e6f5 !important; }
+        body.dark-mode.variant-credit .course-card { background: #162231 !important; color: #f1f6ff !important; border-color: #3f5b78 !important; }
+        body.dark-mode.variant-credit .course-primary-meta span,
+        body.dark-mode.variant-credit .course-primary-meta strong,
+        body.dark-mode.variant-credit .course-info,
+        body.dark-mode.variant-credit .course-enrollment-line { color: #e6eef8 !important; }
+        body.dark-mode.variant-credit .course-time-line { color: #9fd4ff !important; }
+        body.dark-mode.variant-credit .full-people { color: #ffb3b3 !important; }
+        body.dark-mode.variant-credit .wait-people { color: #ffd28a !important; }
+        body.dark-mode.variant-credit .diag-table th { background: #263a52 !important; color: #f5f9ff !important; border-color: #4a6380 !important; }
+        body.dark-mode.variant-credit .diag-table td,
+        body.dark-mode.variant-credit .diag-table .category-col { background: #1b293a !important; color: #edf4ff !important; border-color: #405771 !important; }
+        body.dark-mode.variant-credit .diag-table tbody tr:nth-child(even) td { background: #223045 !important; }
+        body.dark-mode.variant-credit .val-reg,
+        body.dark-mode.variant-credit .diag-table td.val-reg { color: #9fd4ff !important; }
+        body.dark-mode.variant-credit .val-remain,
+        body.dark-mode.variant-credit .diag-table td.val-remain { color: #ffbfc4 !important; }
 
         @media (max-width: 1220px) {
             .course-card-topline,
@@ -442,7 +500,7 @@
         }
     </style>
 </head>
-<body class="ab-variant-a">
+<body class="variant-credit">
 
 <header>
     <div class="header-main">
@@ -469,8 +527,7 @@
                 <button type="button" id="clearSearchBtn" class="search-clear-btn">초기화</button>
             </div>
             <div class="search-helper">코드까지 함께 찾을 수 있게 개선했습니다. ISU/Course는 전공·교양 같은 이수구분을 뜻하며, 카드에 마우스를 올리면 시간표 충돌도 바로 확인할 수 있습니다.</div>
-            <div id="search-filter-label" class="search-filter-label">검색 범위 <span>선택한 범위만 우선 검색합니다</span></div>
-            <div class="search-filter-chips" aria-label="검색 범위 선택" aria-describedby="search-filter-label">
+            <div class="search-filter-chips" aria-label="검색 범위 선택">
                 <button type="button" class="search-scope-chip active" data-scope="all">전체</button>
                 <button type="button" class="search-scope-chip" data-scope="name">강좌명</button>
                 <button type="button" class="search-scope-chip" data-scope="dept">학과</button>
@@ -554,6 +611,7 @@
     let modalCancelAction = null;
     let timetableRefreshFrame = null;
     let activePreviewCourse = null;
+    let previewClearTimer = null;
     const USER_NAME = '김한림';
     const USER_ID = '20231234';
     const USER_MAJOR = '\u00a0콘텐츠IT';
@@ -973,7 +1031,7 @@
                 previewCourseOnTimetable(course);
             })
             .on('mouseleave.coursePreview', '.course-card', function() {
-                clearCoursePreview();
+                scheduleCoursePreviewClear();
             });
     }
 
@@ -985,7 +1043,19 @@
         clearCoursePreview();
     }
 
+    function scheduleCoursePreviewClear() {
+        if (previewClearTimer) clearTimeout(previewClearTimer);
+        previewClearTimer = setTimeout(function() {
+            previewClearTimer = null;
+            clearCoursePreview();
+        }, 1600);
+    }
+
     function clearCoursePreview() {
+        if (previewClearTimer) {
+            clearTimeout(previewClearTimer);
+            previewClearTimer = null;
+        }
         activePreviewCourse = null;
         hideOverlapWarning();
         updateTimetableTextOnly();
@@ -993,6 +1063,10 @@
 
     function previewCourseOnTimetable(course) {
         if (!course) return;
+        if (previewClearTimer) {
+            clearTimeout(previewClearTimer);
+            previewClearTimer = null;
+        }
         activePreviewCourse = course;
         updateTimetableDisplay();
     }
@@ -1191,7 +1265,7 @@
         }
         const content = `
             일괄신청 시 장바구니 1번 강좌부터 순차적으로 수강신청을 시도합니다.<br><br>
-            정원 마감 강좌는 추가 확인 없이 대기신청으로 처리됩니다.<br>
+            각 강좌를 신청하는 과정에서 서버 접속 대기열이 발생할 수 있습니다.<br>
             위 내용을 확인하셨다면 \'확인\' 버튼을 눌러 일괄신청을 진행해 주세요.
         `;
         showModal('장바구니 일괄신청 안내', content, 'confirm', function() {
@@ -1205,10 +1279,10 @@
                     return; // 모두 처리 완료
                 }
                 const courseId = queue.shift();
-                // 일괄신청 중에는 정원 마감 강좌도 추가 확인 없이 대기신청 처리
+                // 정원 여유가 있는 과목은 확인 모달 없이 바로 신청, 대기 과목은 기존처럼 확인 모달 유지
                 registerCourse(courseId, function() {
                     processNext();
-                }, { skipConfirmInBulk: true, suppressSuccessModal: true });
+                }, { skipConfirmIfNotFull: true, suppressSuccessModal: true });
             }
 
             processNext();
@@ -1254,6 +1328,8 @@
 
         const conflicts = getCourseConflicts(course);
         if (conflicts.length) {
+            activePreviewCourse = course;
+            updateTimetableDisplay();
             showModal("수강신청 불가", buildOverlapMessage(course, conflicts), 'alert');
             showOverlapWarning(course, conflicts);
             return;
@@ -1261,18 +1337,12 @@
 
         const isFull = course.enr >= course.cap;
         const skipConfirmIfNotFull = options.skipConfirmIfNotFull && !isFull;
-        const skipConfirmInBulk = options.skipConfirmInBulk;
         const suppressSuccessModal = options.suppressSuccessModal;
 
-        // 일괄신청 등에서 추가 확인 모달 없이 신청/대기 처리
-        if (skipConfirmIfNotFull || skipConfirmInBulk) {
-            if (isFull) {
-                course.wait += 1;
-                myRegistrations.push({ id: id, status: 'waiting', waitNo: course.wait });
-            } else {
-                course.enr += 1;
-                myRegistrations.push({ id: id, status: 'registered' });
-            }
+        // 일괄신청 등에서, 정원 여유가 있는 과목은 확인 모달 없이 바로 신청 처리
+        if (skipConfirmIfNotFull) {
+            course.enr += 1;
+            myRegistrations.push({ id: id, status: 'registered' });
             myCart = myCart.filter(cid => cid !== id);
 
             if (suppressSuccessModal) {
